@@ -1,4 +1,4 @@
-# ai-subject-monitoring-project
+# AI SUBJECT MONITORING PROJECT
 AI Subject Monitoring Project with mermaid
 
 ## Global workflow
@@ -6,8 +6,109 @@ AI Subject Monitoring Project with mermaid
 ``````mermaid
 graph LR
     subgraph start[Linux machin]
-        a((b))
+        subgraph chrontab[Chrontab]
+            A((Chrontab: weekly))
+            
+            style chrontab fill:#556
+        end
+
+        subgraph scripts[Shell scripts]
+            A --> B[watch-podcast-download]:::shell
+            A --> C[Scraping-latest-posts-from-news-sites]:::shell
+            A --> D[ChrisAI-research]:::shell
+            A --> E[veille-IA-CR-auto]:::shell
+            A --> F[newsletter]:::shell
+            
+            style scripts fill:#556
+        end
+
+        style start fill:#444
     end
+
+    subgraph subg-b[topics by podcasts]
+        B --> subg-b-A[main.py]:::python
+
+        style subg-b fill:#556
+    end
+
+    subgraph subg-c[Scraping news sites]
+        C --> subg-c-A[main.py]:::python
+
+        style subg-c fill:#556
+    end
+
+    subgraph subg-d[Manage newsletters]
+        D --> subg-d-A[main.py]:::python
+
+        style subg-d fill:#556
+    end
+
+    subgraph subg-e[Veille outils IA]
+        E --> subg-e-A[main.py]:::python
+
+        style subg-e fill:#556
+    end
+
+    subgraph APIs
+        subgraph transcription-API
+            subg-b-A <--> subg-APIs-A[main.py: transcribe]:::fastapi
+
+            style transcription-API fill:#556
+        end
+
+        subgraph OpenAI-API
+            subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
+
+            style OpenAI-API fill:#444
+        end
+
+        style APIs fill:#444
+    end
+
+    subgraph subg-mysql[topics by podcasts]
+        subg-b-A --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
+        subg-c-A --> subg-mysql-A
+        subg-d-A --> subg-mysql-A
+        subg-e-A --> subg-mysql-A
+
+        style subg-mysql fill:#556
+    end
+
+    subgraph subg-f[Newsletter]
+        F --> subg-f-A[main.py]:::python
+        subg-mysql-A --> subg-f-A
+        subg-f-A --> subg-f-B((Send newsletter))
+
+        style subg-f fill:#556
+    end
+
+    subgraph Legend [Legend]
+        subgraph package[Developed package]
+            example((example))
+
+            style package fill:#556
+        end
+
+        L1[python scripts]:::python
+        L2[Linux shell]:::shell
+        L3[FastAPI]:::fastapi
+        L4[OpenAI]:::openai
+        L5[MySQL]:::mysql
+        L6[SQLite]:::sqlite
+        Lf1[/files/]:::file
+        Lf2[\temporary file\]:::file
+
+        style Legend fill:#999, color:#000
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#0F80CC, color:#4FC0FC
+    classDef shell fill:#000, color:#49F75C
+    classDef file fill:#BBB, color:#333
 ``````
 
 ## watch-podcast-download
@@ -78,7 +179,7 @@ graph TB
     classDef fastapi fill:#059286, color:#45D2C6
     classDef openai fill:#FFF, color:#000;
     classDef sqlite fill:#0F80CC, color:#4FC0FC
-    classDef file fill:#BBB,color:#333
+    classDef file fill:#BBB, color:#333
 ``````
 
 ### I/O API: transcription-API
