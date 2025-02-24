@@ -22,8 +22,8 @@ graph LR
         L2[Linux shell]:::shell
         L3[FastAPI]:::fastapi
         L4[OpenAI]:::openai
-        L5[MySQL]:::mysql
-        L6[SQLite]:::sqlite
+        L5[(MySQL)]:::mysql
+        L6[(SQLite)]:::sqlite
         Lf1[/files/]:::file
         Lf2[\temporary file\]:::file
 
