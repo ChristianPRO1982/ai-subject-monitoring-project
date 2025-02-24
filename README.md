@@ -9,13 +9,13 @@ graph LR
         subgraph package[Developed package]
             example1((example))
 
-            style package fill:#556
+            style package fill:#556, color:#FFF
         end
 
         subgraph not-package[Not developed package]
             example2((example))
 
-            style not-package fill:#444
+            style not-package fill:#444, color:#FFF
         end
 
         L1[python scripts]:::python
