@@ -130,7 +130,7 @@ graph LR
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
     
-    linkStyle default stroke:#003366,stroke-width:2px, fill:#003366
+    linkStyle default stroke:#FF0, stroke-width:2px
 ``````
 
 ## watch-podcast-download
