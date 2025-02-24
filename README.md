@@ -104,7 +104,7 @@ graph LR
         style APIs fill:#444, color:#FFF
     end
 
-    subgraph subg-mysql[topics by podcasts]
+    subgraph subg-mysql[Global DB]
         subg-b-A --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
         subg-c-A --> subg-mysql-A
         subg-d-A --> subg-mysql-A
@@ -160,6 +160,8 @@ graph TB
             F -->|delete 🗑️| E
             F ==> H[04: summarize]:::python
             C <-.-> H
+            H ==> I[Global DB]:::python
+            I ==> J((END))
 
             style watch-podcast-download fill:#556, color:#FFF
         end
@@ -170,18 +172,23 @@ graph TB
             style transcription-API fill:#556, color:#FFF
         end
         
-        H <-->|role: str + prompt: str| O[OpenAI API]:::openai
+        H <--> O[OpenAI API]:::openai
+
+        subgraph subg-mysql[Global DB]
+            I --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
+
+            style subg-mysql fill:#556, color:#FFF
+        end
 
         style step1 fill:#444, color:#FFF
         style E fill:#A00,color:#F99
     end
 
-    H ==> I((END))
-
 
     classDef python fill:#FFDC52, color:#000;
     classDef fastapi fill:#059286, color:#45D2C6
     classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
     classDef sqlite fill:#0F80CC, color:#4FC0FC
     classDef file fill:#BBB, color:#333
 ``````
