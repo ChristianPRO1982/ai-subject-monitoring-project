@@ -27,7 +27,7 @@ graph LR
         Lf1[/files/]:::file
         Lf2[\temporary file\]:::file
 
-        style Legend fill:#999, color:#000
+        style Legend fill:#DDD, color:#000
     end
     
 
