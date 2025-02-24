@@ -48,7 +48,7 @@ graph LR
         subgraph chrontab[Chrontab]
             A((Chrontab: weekly))
             
-            style chrontab fill:#556
+            style chrontab fill:#556, color:#FFF
         end
 
         subgraph scripts[Shell scripts]
@@ -58,50 +58,50 @@ graph LR
             A --> E[veille-IA-CR-auto]:::shell
             A --> F[newsletter]:::shell
             
-            style scripts fill:#556
+            style scripts fill:#556, color:#FFF
         end
 
-        style start fill:#444
+        style start fill:#444, color:#FFF
     end
 
     subgraph subg-b[topics by podcasts]
         B --> subg-b-A[main.py]:::python
 
-        style subg-b fill:#556
+        style subg-b fill:#556, color:#FFF
     end
 
     subgraph subg-c[Scraping news sites]
         C --> subg-c-A[main.py]:::python
 
-        style subg-c fill:#556
+        style subg-c fill:#556, color:#FFF
     end
 
     subgraph subg-d[Manage newsletters]
         D --> subg-d-A[main.py]:::python
 
-        style subg-d fill:#556
+        style subg-d fill:#556, color:#FFF
     end
 
     subgraph subg-e[Veille outils IA]
         E --> subg-e-A[main.py]:::python
 
-        style subg-e fill:#556
+        style subg-e fill:#556, color:#FFF
     end
 
     subgraph APIs
         subgraph transcription-API
             subg-b-A <--> subg-APIs-A[main.py: transcribe]:::fastapi
 
-            style transcription-API fill:#556
+            style transcription-API fill:#556, color:#FFF
         end
 
         subgraph OpenAI-API
             subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
 
-            style OpenAI-API fill:#444
+            style OpenAI-API fill:#444, color:#FFF
         end
 
-        style APIs fill:#444
+        style APIs fill:#444, color:#FFF
     end
 
     subgraph subg-mysql[topics by podcasts]
@@ -110,7 +110,7 @@ graph LR
         subg-d-A --> subg-mysql-A
         subg-e-A --> subg-mysql-A
 
-        style subg-mysql fill:#556
+        style subg-mysql fill:#556, color:#FFF
     end
 
     subgraph subg-f[Newsletter]
@@ -118,7 +118,7 @@ graph LR
         subg-mysql-A --> subg-f-A
         subg-f-A --> subg-f-B((Send newsletter))
 
-        style subg-f fill:#556
+        style subg-f fill:#556, color:#FFF
     end
 
 
@@ -141,10 +141,10 @@ graph TB
         subgraph chrontab[Chrontab]
             A((Chrontab))
 
-            style chrontab fill:#556
+            style chrontab fill:#556, color:#FFF
         end
 
-        style start fill:#444
+        style start fill:#444, color:#FFF
     end
 
     subgraph step1[topics by podcasts]
@@ -161,18 +161,18 @@ graph TB
             F ==> H[04: summarize]:::python
             C <-.-> H
 
-            style watch-podcast-download fill:#556
+            style watch-podcast-download fill:#556, color:#FFF
         end
         
         subgraph transcription-API
             F <--> N[main.py: transcribe]:::fastapi
 
-            style transcription-API fill:#556
+            style transcription-API fill:#556, color:#FFF
         end
         
         H <-->|role: str + prompt: str| O[OpenAI API]:::openai
 
-        style step1 fill:#444
+        style step1 fill:#444, color:#FFF
         style E fill:#A00,color:#F99
     end
 
