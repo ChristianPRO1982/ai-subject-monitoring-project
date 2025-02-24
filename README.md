@@ -1,6 +1,45 @@
 # AI SUBJECT MONITORING PROJECT
 AI Subject Monitoring Project with mermaid
 
+## Legend
+
+``````mermaid
+graph LR
+    subgraph Legend [Legend]
+        subgraph package[Developed package]
+            example1((example))
+
+            style package fill:#556
+        end
+
+        subgraph not-package[Not developed package]
+            example2((example))
+
+            style not-package fill:#444
+        end
+
+        L1[python scripts]:::python
+        L2[Linux shell]:::shell
+        L3[FastAPI]:::fastapi
+        L4[OpenAI]:::openai
+        L5[MySQL]:::mysql
+        L6[SQLite]:::sqlite
+        Lf1[/files/]:::file
+        Lf2[\temporary file\]:::file
+
+        style Legend fill:#999, color:#000
+    end
+    
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#0F80CC, color:#4FC0FC
+    classDef shell fill:#000, color:#49F75C
+    classDef file fill:#BBB, color:#333
+``````
+
 ## Global workflow
 
 ``````mermaid
@@ -82,25 +121,6 @@ graph LR
         style subg-f fill:#556
     end
 
-    subgraph Legend [Legend]
-        subgraph package[Developed package]
-            example((example))
-
-            style package fill:#556
-        end
-
-        L1[python scripts]:::python
-        L2[Linux shell]:::shell
-        L3[FastAPI]:::fastapi
-        L4[OpenAI]:::openai
-        L5[MySQL]:::mysql
-        L6[SQLite]:::sqlite
-        Lf1[/files/]:::file
-        Lf2[\temporary file\]:::file
-
-        style Legend fill:#999, color:#000
-    end
-
 
     classDef python fill:#FFDC52, color:#000;
     classDef fastapi fill:#059286, color:#45D2C6
@@ -158,22 +178,6 @@ graph TB
 
     H ==> I((END))
 
-    subgraph Legend [Legend]
-        subgraph package[Developed package]
-            example((example))
-
-            style package fill:#556
-        end
-
-        L1[python scripts]:::python
-        L2[FastAPI]:::fastapi
-        L3[OpenAI]:::openai
-        L4[SQLite]:::sqlite
-        Lf1[/files/]:::file
-        Lf2[\temporary file\]:::file
-
-        style Legend fill:#999, color:#000
-    end
 
     classDef python fill:#FFDC52, color:#000;
     classDef fastapi fill:#059286, color:#45D2C6
