@@ -9,13 +9,13 @@ graph LR
         subgraph package[Developed package]
             example1((example))
 
-            style package fill:#556, color:#FFF
+            style package fill:#88A, color:#FFF
         end
 
         subgraph not-package[Not developed package]
             example2((example))
 
-            style not-package fill:#444, color:#FFF
+            style not-package fill:#777, color:#FFF
         end
 
         L1[python scripts]:::python
@@ -48,7 +48,7 @@ graph LR
         subgraph chrontab[Chrontab]
             A((Chrontab: weekly))
             
-            style chrontab fill:#556, color:#FFF
+            style chrontab fill:#88A, color:#FFF
         end
 
         subgraph scripts[Shell scripts]
@@ -58,39 +58,39 @@ graph LR
             A --> E[veille-IA-CR-auto]:::shell
             A --> F[newsletter]:::shell
             
-            style scripts fill:#556, color:#FFF
+            style scripts fill:#88A, color:#FFF
         end
 
-        style start fill:#444, color:#FFF
+        style start fill:#777, color:#FFF
 
         subgraph subg-b[topics by podcasts]
             B --> subg-b-A[main.py]:::python
 
-            style subg-b fill:#556, color:#FFF
+            style subg-b fill:#88A, color:#FFF
         end
 
         subgraph subg-c[Scraping news sites]
             C --> subg-c-A[main.py]:::python
 
-            style subg-c fill:#556, color:#FFF
+            style subg-c fill:#88A, color:#FFF
         end
 
         subgraph subg-d[Manage newsletters]
             D --> subg-d-A[main.py]:::python
 
-            style subg-d fill:#556, color:#FFF
+            style subg-d fill:#88A, color:#FFF
         end
 
         subgraph subg-e[Veille outils IA]
             E --> subg-e-A[main.py]:::python
 
-            style subg-e fill:#556, color:#FFF
+            style subg-e fill:#88A, color:#FFF
         end
 
         subgraph transcription-API
             subg-b-A <--> subg-APIs-A[main.py: transcribe]:::fastapi
 
-            style transcription-API fill:#556, color:#FFF
+            style transcription-API fill:#88A, color:#FFF
         end
 
         subgraph subg-mysql[Global DB]
@@ -99,7 +99,7 @@ graph LR
             subg-d-A --> subg-mysql-A
             subg-e-A --> subg-mysql-A
 
-            style subg-mysql fill:#556, color:#FFF
+            style subg-mysql fill:#88A, color:#FFF
         end
 
         subgraph subg-f[Newsletter]
@@ -107,7 +107,7 @@ graph LR
             subg-mysql-A --> subg-f-A
             subg-f-A --> subg-f-B((Send newsletter))
 
-            style subg-f fill:#556, color:#FFF
+            style subg-f fill:#88A, color:#FFF
         end
     end
 
@@ -115,10 +115,10 @@ graph LR
         subgraph OpenAI-API
             subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
 
-            style OpenAI-API fill:#444, color:#FFF
+            style OpenAI-API fill:#777, color:#FFF
         end
 
-        style APIs fill:#444, color:#FFF
+        style APIs fill:#777, color:#FFF
     end
 
 
@@ -129,8 +129,6 @@ graph LR
     classDef sqlite fill:#0F80CC, color:#4FC0FC
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
-    
-    linkStyle default stroke:#FF0, stroke-width:2px
 ``````
 
 ## watch-podcast-download
@@ -142,7 +140,7 @@ graph TB
     subgraph chrontab[Chrontab]
         A((Chrontab))
 
-        style chrontab fill:#556, color:#FFF
+        style chrontab fill:#88A, color:#FFF
     end
 
     subgraph step1[topics by podcasts]
@@ -161,13 +159,13 @@ graph TB
             H ==> I[05: Global DB]:::python
             I ==> J((END))
 
-            style watch-podcast-download fill:#556, color:#FFF
+            style watch-podcast-download fill:#88A, color:#FFF
         end
         
         subgraph transcription-API
             F <--> N[main.py: transcribe]:::fastapi
 
-            style transcription-API fill:#556, color:#FFF
+            style transcription-API fill:#88A, color:#FFF
         end
         
         H <--> O[OpenAI API]:::openai
@@ -175,10 +173,10 @@ graph TB
         subgraph subg-mysql[Global DB]
             I -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
 
-            style subg-mysql fill:#556, color:#FFF
+            style subg-mysql fill:#88A, color:#FFF
         end
 
-        style step1 fill:#444, color:#FFF
+        style step1 fill:#777, color:#FFF
         style E fill:#A00,color:#F99
     end
 
