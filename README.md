@@ -53,7 +53,7 @@ graph LR
         subgraph scripts[Shell scripts]
             style scripts fill:#88A, color:#FFF
             
-            A --> B[watch-podcast-downloader]:::shell
+            A --> B[Podcast Watchdog]:::shell
             A --> C[Scrape-latest-posts-from-news-sites]:::shell
             A --> D[ChrisAI-research]:::shell
             A --> E[veille-IA-CR-auto]:::shell
@@ -148,8 +148,8 @@ graph TB
             D ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
             E ==> F[05: Global DB]:::python
             F ==> G((END))
-            B <--> ai-json
-            D <--> prompt-json
+            ai-json --> B
+            prompt-json --> D
             B -.-> H[(podcastdb.sqlite)]:::sqlite
             C <-.-> H
             D <-.-> H
