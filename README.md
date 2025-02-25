@@ -65,7 +65,7 @@ graph LR
             style subg-b fill:#88A, color:#FFF
 
             subg-b-click[PROJECT'S FLOWCHART]
-            click subg-b-click "https://github.com/ChristianPRO1982/ai-subject-monitoring-project?tab=readme-ov-file#overview-diagram" "clliic"
+            click subg-b-click "#overview-diagram" "clliic"
 
             B -->|main.py| subg-b-A[python POO]:::python
 
