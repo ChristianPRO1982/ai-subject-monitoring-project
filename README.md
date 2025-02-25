@@ -63,7 +63,11 @@ graph LR
 
         subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
+
             B --> subg-b-A[main.py]:::python
+
+            dbpodcast[(podcastdb.sqlite)]:::sqlite
+            transcribe[/📑 podcast_transcribed.txt/]:::file
         end
 
         subgraph subg-c[Scraping news sites]
