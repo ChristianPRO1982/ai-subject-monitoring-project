@@ -127,12 +127,12 @@ graph LR
 ### Overview diagram
 
 ```mermaid
-graph TB
+graph LR
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
-        subgraph chrontab[Chrontab]
-            style chrontab fill:#555, color:#FFF
+        subgraph linux[Linux]
+            style linux fill:#555, color:#FFF
             A((Chrontab))
         end
 
@@ -142,12 +142,13 @@ graph TB
             ai-json[/ai_rss_feeds.json/]:::file
             prompt-json[/ai_rss_prompts.json/]:::file
 
-            A ==>|main.py| B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
-            B ==> C[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
-            C ==> D[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
-            D ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
-            E ==> F[05: Global DB]:::python
-            F ==> G((END))
+            A ==> main[main.py]:::python
+            main ==> B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
+            main ==> C[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
+            main ==> D[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
+            main ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
+            main ==> F[05: Global DB]:::python
+            main ==> G((END))
             ai-json --> B
             prompt-json --> D
             B -.-> H[(podcastdb.sqlite)]:::sqlite
