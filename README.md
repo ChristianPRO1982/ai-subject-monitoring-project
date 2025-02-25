@@ -153,6 +153,7 @@ graph LR
             D -->|🗑️ delete| H
             F ==> J((END))
             Y["fab:fa-youtube Starter Guide"]
+            Y --> Z("fa:fa-book-open Learn More")
         end
         
         subgraph transcription-API
