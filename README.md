@@ -127,7 +127,7 @@ graph LR
 ### Overview diagram
 
 ```mermaid
-graph LR
+graph TB
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
@@ -139,21 +139,24 @@ graph LR
         subgraph pw[Podcast Watchdog]
             style pw fill:#88A, color:#FFF
 
+            ai-json[/ai_rss_feeds.json/]:::file
+            prompt-json[/ai_rss_prompts.json/]:::file
+
             A ==>|main.py| B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
             B ==> C[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
             C ==> D[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
             D ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
             E ==> F[05: Global DB]:::python
-            B -.-> G[(podcastdb.sqlite)]:::sqlite
-            C <-.-> G
-            D <-.-> G
-            E <-.-> G
-            C -->|📝 create| H[\🎧 XX_podcast.mp3\]:::file
-            D -->|📝 create| I[/📄 XX_podcast.txt/]:::file
-            D -->|🗑️ delete| H
-            F ==> J((END))
-            Y["fab:fa-youtube Starter Guide"]
-            Y --> Z("fa:fa-book-open Learn More")
+            F ==> G((END))
+            B <--> ai-json
+            D <--> prompt-json
+            B -.-> H[(podcastdb.sqlite)]:::sqlite
+            C <-.-> H
+            D <-.-> H
+            E <-.-> H
+            C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::file
+            D -->|📝 create| J[/📄 XX_podcast.txt/]:::file
+            D -->|🗑️ delete| I
         end
         
         subgraph transcription-API
@@ -161,17 +164,15 @@ graph LR
             C <--> N[main.py: transcribe]:::fastapi
         end
         
-        subgraph openai[OpenAI]
-            style openai fill:#555, color:#FFF
-            D <--> O[API]:::openai
-        end
-
         subgraph subg-mysql[Global DB]
             F -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
-
             style subg-mysql fill:#88A, color:#FFF
         end
+    end
 
+    subgraph openai[OpenAI]
+        style openai fill:#555, color:#FFF
+        D <--> O[API]:::openai
     end
 
 
