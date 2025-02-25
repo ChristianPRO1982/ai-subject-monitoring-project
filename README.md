@@ -24,8 +24,8 @@ graph LR
         L4[OpenAI]:::openai
         L5[(MySQL)]:::mysql
         L6[(SQLite)]:::sqlite
-        Lf1[/files/]:::file
-        Lf2[\temporary file\]:::file
+        Lf1[/📃 files/]:::file
+        Lf2[\📃 temporary file\]:::tfile
     end
     
 
@@ -36,6 +36,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
 ``````
 
 ## Global workflow
@@ -57,35 +58,38 @@ graph LR
             A --> C[Scrape-latest-posts-from-news-sites]:::shell
             A --> D[ChrisAI-research]:::shell
             A --> E[veille-IA-CR-auto]:::shell
-            A --> F[newsletter]:::shell
+            A --> F[Monitoring AI tools]:::shell
+            A --> G[newsletter]:::shell
         end
 
 
         subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
 
-            subg-b-click[PROJECT'S FLOWCHART]
-            click subg-b-click "#overview-diagram" "clliic"
-
             B -->|main.py| subg-b-A[python POO]:::python
 
-            dbpodcast[(podcastdb.sqlite)]:::sqlite
-            transcribe[/📑 podcast_transcribed.txt/]:::file
+            dbpodcast[(podcast.db)]:::sqlite
+            transcribe[/📂 podcast_transcribed.txt/]:::file
         end
 
         subgraph subg-c[Scraping news sites]
-            style subg-c fill:#88A, color:#FFF
-            C --> subg-c-A[main.py]:::python
+            style subg-c fill:#030, color:#FFF
+            C -->|main.py| subg-c-A[🚧 under construction 🚧]:::python
         end
 
         subgraph subg-d[Manage newsletters]
-            style subg-d fill:#88A, color:#FFF
-            D --> subg-d-A[main.py]:::python
+            style subg-d fill:#030, color:#FFF
+            D -->|main.py| subg-d-A[🚧 under construction 🚧]:::python
         end
 
-        subgraph subg-e[Veille outils IA]
-            style subg-e fill:#88A, color:#FFF
-            E --> subg-e-A[main.py]:::python
+        subgraph subg-e[ChrisAI-research]
+            style subg-e fill:#030, color:#FFF
+            E -->|main.py| subg-e-A[🚧 under construction 🚧]:::python
+        end
+
+        subgraph subg-f[Monitoring AI tools]
+            style subg-f fill:#030, color:#FFF
+            F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
         end
 
         subgraph transcription-API
@@ -94,20 +98,21 @@ graph LR
         end
 
         subgraph subg-mysql[Global DB]
-            style subg-mysql fill:#88A, color:#FFF
-
+            style subg-mysql fill:#030, color:#FFF
+            info1[🚧 under construction 🚧]
             subg-b-A --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
             subg-c-A --> subg-mysql-A
             subg-d-A --> subg-mysql-A
             subg-e-A --> subg-mysql-A
+            subg-f-A --> subg-mysql-A
         end
 
-        subgraph subg-f[Newsletter]
-            style subg-f fill:#88A, color:#FFF
-
-            F --> subg-f-A[main.py]:::python
-            subg-mysql-A --> subg-f-A
-            subg-f-A --> subg-f-B((Send newsletter))
+        subgraph subg-g[Newsletter]
+            style subg-g fill:#030, color:#FFF
+            
+            G -->|main.py| subg-g-A[🚧 under construction 🚧]:::python
+            subg-mysql-A --> subg-g-A
+            subg-g-A --> subg-g-B((Send newsletter))
         end
     end
 
@@ -128,6 +133,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
 ``````
 
 ## Podcast Watchdog
@@ -136,6 +142,10 @@ graph LR
 
 ```mermaid
 graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
+    style goto-project fill:#000, color:#00F
+
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
@@ -147,8 +157,8 @@ graph LR
         subgraph pw[Podcast Watchdog]
             style pw fill:#88A, color:#FFF
 
-            ai-json[/ai_rss_feeds.json/]:::file
-            prompt-json[/ai_rss_prompts.json/]:::file
+            ai-json[/⚙️ ai_rss_feeds.json/]:::file
+            prompt-json[/⚙️ ai_rss_prompts.json/]:::file
 
             A ==> main[main.py]:::python
             main ==> B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
@@ -156,14 +166,13 @@ graph LR
             main ==> D[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
             main ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
             main ==> F[05: Global DB]:::python
-            main ==> G((END))
             ai-json --> B
             prompt-json --> D
-            B -.-> H[(podcastdb.sqlite)]:::sqlite
+            B -.-> H[(podcast.db)]:::sqlite
             C <-.-> H
             D <-.-> H
             E <-.-> H
-            C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::file
+            C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::tfile
             D -->|📝 create| J[/📄 XX_podcast.txt/]:::file
             D -->|🗑️ delete| I
         end
@@ -191,6 +200,7 @@ graph LR
     classDef mysql fill:#00618B, color:#40A1CB
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
 ``````
 
 ### I/O API: transcription-API
@@ -211,4 +221,186 @@ sequenceDiagram
     participant OpenAI
     podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
     OpenAI-->>podcast-watchdog: message
+``````
+
+## Transcribe API
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/transcription-API"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+``````
+
+## Scraping news sites
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/scraping-news-sites"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+``````
+
+## Manage newsletters
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+``````
+
+## Monitoring AI tools
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/monitoring-ai-tools"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+``````
+
+## ChrisAI-research
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/ChrisAI-research"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+``````
+
+## Global DB
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+``````
+
+## Newsletter
+
+### Flowchart
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
+    style goto-project fill:#000, color:#00F
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        init
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
 ``````
