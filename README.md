@@ -106,6 +106,7 @@ graph LR
 
     subgraph APIs
         style APIs fill:#777, color:#FFF
+        
         subgraph OpenAI-API
             style OpenAI-API fill:#555, color:#FFF
             subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
@@ -189,18 +190,18 @@ graph LR
 
 ``````mermaid
 sequenceDiagram
-    participant watch-podcast-download
+    participant podcast-watchdog
     participant transcription-API
-    watch-podcast-download->>transcription-API: API Request [POST]: file_path: str
-    transcription-API-->>watch-podcast-download: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
+    podcast-watchdog->>transcription-API: API Request [POST]: file_path: str
+    transcription-API-->>podcast-watchdog: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
 ``````
 
 ### I/O API: OpenAI API
 
 ``````mermaid
 sequenceDiagram
-    participant watch-podcast-download
+    participant podcast-watchdog
     participant OpenAI
-    watch-podcast-download->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
-    OpenAI-->>watch-podcast-download: message
+    podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
+    OpenAI-->>podcast-watchdog: message
 ``````
