@@ -64,6 +64,9 @@ graph LR
         subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
 
+            subg-b-click[PROJECT'S FLOWCHART]
+            click subg-b-click "https://github.com/ChristianPRO1982/ai-subject-monitoring-project?tab=readme-ov-file#overview-diagram" "clliic"
+
             B -->|main.py| subg-b-A[python POO]:::python
 
             dbpodcast[(podcastdb.sqlite)]:::sqlite
@@ -129,7 +132,7 @@ graph LR
 
 ## Podcast Watchdog
 
-### Overview diagram
+### Flowchart
 
 ```mermaid
 graph LR
