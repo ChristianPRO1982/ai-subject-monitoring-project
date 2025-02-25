@@ -6,16 +6,16 @@ AI Subject Monitoring Project with mermaid
 ``````mermaid
 graph LR
     subgraph Legend [Legend]
-        subgraph package[Developed package]
-            example1((example))
+        style Legend fill:#DDD, color:#000
 
+        subgraph package[Developed package]
             style package fill:#88A, color:#FFF
+            example1((example))
         end
 
         subgraph not-package[Not developed package]
+            style not-package fill:#555, color:#FFF
             example2((example))
-
-            style not-package fill:#777, color:#FFF
         end
 
         L1[python scripts]:::python
@@ -26,8 +26,6 @@ graph LR
         L6[(SQLite)]:::sqlite
         Lf1[/files/]:::file
         Lf2[\temporary file\]:::file
-
-        style Legend fill:#DDD, color:#000
     end
     
 
@@ -44,81 +42,74 @@ graph LR
 
 ``````mermaid
 graph LR
-    subgraph start[Linux machin]
-        subgraph chrontab[Chrontab]
-            A((Chrontab: weekly))
-            
-            style chrontab fill:#88A, color:#FFF
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+
+        subgraph crontab[Crontab]
+            style crontab fill:#88A, color:#FFF
+            A((Crontab: weekly))
         end
 
         subgraph scripts[Shell scripts]
-            A --> B[watch-podcast-download]:::shell
-            A --> C[Scraping-latest-posts-from-news-sites]:::shell
+            style scripts fill:#88A, color:#FFF
+            
+            A --> B[watch-podcast-downloader]:::shell
+            A --> C[Scrape-latest-posts-from-news-sites]:::shell
             A --> D[ChrisAI-research]:::shell
             A --> E[veille-IA-CR-auto]:::shell
             A --> F[newsletter]:::shell
-            
-            style scripts fill:#88A, color:#FFF
         end
 
-        style start fill:#777, color:#FFF
 
-        subgraph subg-b[topics by podcasts]
-            B --> subg-b-A[main.py]:::python
-
+        subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
+            B --> subg-b-A[main.py]:::python
         end
 
         subgraph subg-c[Scraping news sites]
-            C --> subg-c-A[main.py]:::python
-
             style subg-c fill:#88A, color:#FFF
+            C --> subg-c-A[main.py]:::python
         end
 
         subgraph subg-d[Manage newsletters]
-            D --> subg-d-A[main.py]:::python
-
             style subg-d fill:#88A, color:#FFF
+            D --> subg-d-A[main.py]:::python
         end
 
         subgraph subg-e[Veille outils IA]
-            E --> subg-e-A[main.py]:::python
-
             style subg-e fill:#88A, color:#FFF
+            E --> subg-e-A[main.py]:::python
         end
 
         subgraph transcription-API
-            subg-b-A <--> subg-APIs-A[main.py: transcribe]:::fastapi
-
             style transcription-API fill:#88A, color:#FFF
+            subg-b-A <--> subg-APIs-A[main.py: transcribe]:::fastapi
         end
 
         subgraph subg-mysql[Global DB]
+            style subg-mysql fill:#88A, color:#FFF
+
             subg-b-A --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
             subg-c-A --> subg-mysql-A
             subg-d-A --> subg-mysql-A
             subg-e-A --> subg-mysql-A
-
-            style subg-mysql fill:#88A, color:#FFF
         end
 
         subgraph subg-f[Newsletter]
+            style subg-f fill:#88A, color:#FFF
+
             F --> subg-f-A[main.py]:::python
             subg-mysql-A --> subg-f-A
             subg-f-A --> subg-f-B((Send newsletter))
-
-            style subg-f fill:#88A, color:#FFF
         end
     end
 
     subgraph APIs
-        subgraph OpenAI-API
-            subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
-
-            style OpenAI-API fill:#777, color:#FFF
-        end
-
         style APIs fill:#777, color:#FFF
+        subgraph OpenAI-API
+            style OpenAI-API fill:#555, color:#FFF
+            subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
+        end
     end
 
 
@@ -131,53 +122,55 @@ graph LR
     classDef file fill:#BBB, color:#333
 ``````
 
-## watch-podcast-download
+## Podcast Watchdog
 
 ### Overview diagram
 
 ```mermaid
-graph TB
-    subgraph chrontab[Chrontab]
-        A((Chrontab))
+graph LR
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        subgraph chrontab[Chrontab]
+            style chrontab fill:#88A, color:#FFF
+            A((Chrontab))
+        end
 
-        style chrontab fill:#88A, color:#FFF
-    end
+        subgraph pw[Podcast Watchdog]
+            style pw fill:#88A, color:#FFF
 
-    subgraph step1[topics by podcasts]
-        subgraph watch-podcast-download
-            A ==>|main.py| B[01: parse feeds RSS]:::python
-            B -.-> C[(podcastdb.sqlite)]:::sqlite
-            B ==> D[02: download mp3]:::python
-            C <-.-> D
-            D -->|create 📝| E[\🎧 XX_podcast.mp3\]:::file
-            D ==> F[03: transcribe]:::python
-            C <-.-> F
-            F -->|create 📝| G[/📄 XX_podcast.txt/]:::file
-            F -->|delete 🗑️| E
-            F ==> H[04: summarize]:::python
-            C <-.-> H
-            H ==> I[05: Global DB]:::python
-            I ==> J((END))
-
-            style watch-podcast-download fill:#88A, color:#FFF
+            A ==>|main.py| B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
+            B ==> C[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
+            C ==> D[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
+            D ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
+            E ==> F[05: Global DB]:::python
+            B -.-> G[(podcastdb.sqlite)]:::sqlite
+            C <-.-> G
+            D <-.-> G
+            E <-.-> G
+            C -->|📝 create| H[\🎧 XX_podcast.mp3\]:::file
+            D -->|📝 create| I[/📄 XX_podcast.txt/]:::file
+            D -->|🗑️ delete| H
+            F ==> J((END))
+            Y["fab:fa-youtube Starter Guide"]
         end
         
         subgraph transcription-API
-            F <--> N[main.py: transcribe]:::fastapi
-
             style transcription-API fill:#88A, color:#FFF
+            C <--> N[main.py: transcribe]:::fastapi
         end
         
-        H <--> O[OpenAI API]:::openai
+        subgraph openai[OpenAI]
+            style openai fill:#555, color:#FFF
+            D <--> O[API]:::openai
+        end
 
         subgraph subg-mysql[Global DB]
-            I -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
+            F -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
 
             style subg-mysql fill:#88A, color:#FFF
         end
 
-        style step1 fill:#777, color:#FFF
-        style E fill:#A00,color:#F99
     end
 
 
