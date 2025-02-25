@@ -108,7 +108,7 @@ graph LR
         end
     end
 
-    subgraph APIs
+    subgraph APIs[external APIs]
         style APIs fill:#777, color:#FFF
         
         subgraph OpenAI-API
@@ -167,7 +167,7 @@ graph LR
         
         subgraph transcription-API
             style transcription-API fill:#555, color:#FFF
-            C <--> N[main.py: transcribe]:::fastapi
+            D <--> N[main.py: transcribe]:::fastapi
         end
         
         subgraph subg-mysql[Global DB]
@@ -178,7 +178,7 @@ graph LR
 
     subgraph openai[OpenAI]
         style openai fill:#555, color:#FFF
-        D <--> O[API]:::openai
+        E <--> O[API]:::openai
     end
 
 
