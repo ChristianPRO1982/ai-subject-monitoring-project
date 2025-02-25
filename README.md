@@ -117,7 +117,7 @@ graph LR
     classDef fastapi fill:#059286, color:#45D2C6
     classDef openai fill:#FFF, color:#000;
     classDef mysql fill:#00618B, color:#40A1CB
-    classDef sqlite fill:#0F80FF, color:#4FC0FF
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
 ``````
@@ -180,7 +180,7 @@ graph TB
     classDef fastapi fill:#059286, color:#45D2C6
     classDef openai fill:#FFF, color:#000;
     classDef mysql fill:#00618B, color:#40A1CB
-    classDef sqlite fill:#0F80CC, color:#4FC0FC
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
 ``````
 
