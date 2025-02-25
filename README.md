@@ -132,7 +132,7 @@ graph TB
         style machine fill:#777, color:#FFF
         
         subgraph chrontab[Chrontab]
-            style chrontab fill:#88A, color:#FFF
+            style chrontab fill:#555, color:#FFF
             A((Chrontab))
         end
 
@@ -160,13 +160,13 @@ graph TB
         end
         
         subgraph transcription-API
-            style transcription-API fill:#88A, color:#FFF
+            style transcription-API fill:#555, color:#FFF
             C <--> N[main.py: transcribe]:::fastapi
         end
         
         subgraph subg-mysql[Global DB]
             F -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
-            style subg-mysql fill:#88A, color:#FFF
+            style subg-mysql fill:#555, color:#FFF
         end
     end
 
