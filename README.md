@@ -172,7 +172,7 @@ graph LR
             main ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
             main ==> F[05: Global DB]:::python
             ai-json --> B
-            prompt-json --> D
+            prompt-json --> E
             B -.->|INSERT| H[(podcast.db)]:::sqlite
             C <-.->|SELECT + UPDATE| H
             D <-.->|SELECT + UPDATE| H
