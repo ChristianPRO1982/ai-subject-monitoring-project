@@ -168,7 +168,7 @@ graph LR
             main ==> F[05: Global DB]:::python
             ai-json --> B
             prompt-json --> D
-            B -.-> BH("BH sdfsdfs sdfsdfsdf ssdfsdfsd")
+            B -.-> BH(INSERT)
             BH -.-> H[(podcast.db)]:::sqlite
             C <-.->|SELECT + UPDATE| H
             D <-.->|SELECT + UPDATE| H
