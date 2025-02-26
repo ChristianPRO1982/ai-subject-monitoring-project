@@ -18,6 +18,11 @@ graph LR
             example2((example))
         end
 
+        subgraph dev[🚧 under construction 🚧]
+            style dev fill:#363, color:#FFF
+            example3((example))
+        end
+
         L1[python scripts]:::python
         L2[Linux shell]:::shell
         L3[FastAPI]:::fastapi
@@ -73,22 +78,22 @@ graph LR
         end
 
         subgraph subg-c[Scraping news sites]
-            style subg-c fill:#030, color:#FFF
+            style subg-c fill:#363, color:#FFF
             C -->|main.py| subg-c-A[🚧 under construction 🚧]:::python
         end
 
         subgraph subg-d[Manage newsletters]
-            style subg-d fill:#030, color:#FFF
+            style subg-d fill:#363, color:#FFF
             D -->|main.py| subg-d-A[🚧 under construction 🚧]:::python
         end
 
         subgraph subg-e[ChrisAI-research]
-            style subg-e fill:#030, color:#FFF
+            style subg-e fill:#363, color:#FFF
             E -->|main.py| subg-e-A[🚧 under construction 🚧]:::python
         end
 
         subgraph subg-f[Monitoring AI tools]
-            style subg-f fill:#030, color:#FFF
+            style subg-f fill:#363, color:#FFF
             F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
         end
 
@@ -98,7 +103,7 @@ graph LR
         end
 
         subgraph subg-mysql[Global DB]
-            style subg-mysql fill:#030, color:#FFF
+            style subg-mysql fill:#363, color:#FFF
             info1[🚧 under construction 🚧]
             subg-b-A --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
             subg-c-A --> subg-mysql-A
@@ -108,7 +113,7 @@ graph LR
         end
 
         subgraph subg-g[Newsletter]
-            style subg-g fill:#030, color:#FFF
+            style subg-g fill:#363, color:#FFF
             
             G -->|main.py| subg-g-A[🚧 under construction 🚧]:::python
             subg-mysql-A --> subg-g-A
@@ -183,7 +188,7 @@ graph LR
         end
         
         subgraph subg-mysql[Global DB]
-            style subg-mysql fill:#555, color:#FFF
+            style subg-mysql fill:#363, color:#FFF
 
             F -.->|INSERT| subg-mysql-A[(ai-subject-monitoring)]:::mysql
             H -.->|SELECT| F
