@@ -243,7 +243,22 @@ graph LR
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
-        init
+        subgraph app
+            style app fill:#555, color:#FFF
+            A((call))
+        end
+
+        subgraph ta[Transcribe API]
+            style ta fill:#88A, color:#FFF
+
+            A ==>|file_path: str| EP-TRANSCRIBE["ENDPOINT Transcribe [POST]"]:::python
+            EP-TRANSCRIBE -.->|"json:file_name / file_name / date_time / processing_time / transcription_text / error"| A
+
+            EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
+            UTILS -->|"(text, error)"| EP-TRANSCRIBE
+
+            UTILS <--> WHISPER["model = whisper.load_model('base')"]
+        end
     end
 
 
