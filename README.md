@@ -174,7 +174,7 @@ graph LR
             E <-.->|SELECT + UPDATE| H
             C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::tfile
             D -->|📝 create| J[/📄 XX_podcast.txt/]:::file
-            D -->|🗑️ delete| I
+            D <-->|👁️‍🗨️ read & 🗑️ delete| I
         end
         
         subgraph transcription-API
