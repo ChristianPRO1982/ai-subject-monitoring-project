@@ -168,10 +168,11 @@ graph LR
             main ==> F[05: Global DB]:::python
             ai-json --> B
             prompt-json --> D
-            B -.-> H[(podcast.db)]:::sqlite
-            C <-.-> H
-            D <-.-> H
-            E <-.-> H
+            B -.-> BH("BH sdfsdfs sdfsdfsdf ssdfsdfsd")
+            BH -.-> H[(podcast.db)]:::sqlite
+            C <-.->|SELECT + UPDATE| H
+            D <-.->|SELECT + UPDATE| H
+            E <-.->|SELECT + UPDATE| H
             C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::tfile
             D -->|📝 create| J[/📄 XX_podcast.txt/]:::file
             D -->|🗑️ delete| I
@@ -183,8 +184,10 @@ graph LR
         end
         
         subgraph subg-mysql[Global DB]
-            F -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
             style subg-mysql fill:#555, color:#FFF
+
+            F -.->|INSERT| subg-mysql-A[(ai-subject-monitoring)]:::mysql
+            H -.->|SELECT| F
         end
     end
 
