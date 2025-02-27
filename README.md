@@ -5,18 +5,20 @@ AI Subject Monitoring Project with mermaid
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/ChristianPRO1982/ai-subject-monitoring-project.svg)](https://github.com/ChristianPRO1982/ai-subject-monitoring-project/blob/main/LICENSE)
 
-## Table of Contents
+<details>
 
-- [Legend](#legend)
-- [Global workflow](#global-workflow)
-- [Podcast Watchdog](#podcast-watchdog)
-- [Transcribe API](#transcribe-api)
-- [Manage newsletters](#manage-newsletters)
-- [Scraping news sites](#scraping-news-sites)
-- [Monitoring AI tools](#monitoring-ai-tools)
-- [ChrisAI-research](#chrisairesearch)
-- [Global DB](#global-db)
-- [Newsletter](#newsletter)
+  <summary><strong>📌 Table of Contents</strong></summary>
+
+  * [Legend](#legend)
+  * [Global workflow](#global-workflow)
+
+| Linux machine | Podcast Watchdog | Transcrib API | News sites | Manage newsletters | ChrisAI-research | Monitoring AI tools | newsletter | Global DB |
+|---------------|------------------|---------------|------------|--------------------|------------------|---------------------|------------|-----------|
+| [Linux machine](#linux-machine) | [Podcast Watchdog](#podcast-watchdog) | [Transcribe API](#transcribe-api) | [Scraping news sites](#scraping-news-sites) | [Manage newsletters](#manage-newsletters) | [ChrisAI-research](#chrisai-research) | [Monitoring AI tools](#monitoring-ai-tools) | [Global DB](#global-db) | [Newsletter](#newsletter) |
+| [Linux crontab](#linux-crontab) | [Flowchart](#flowchart) |
+| [Shell scripts](#shell-scripts) | [I/O API: transcription-API](#io-api-transcription-api) |
+|| [I/O API: OpenAI API](#io-api-openai-api) |
+</details>
 
 ## Legend
 
@@ -78,8 +80,8 @@ graph LR
             
             A --> B[Podcast Watchdog]:::shell
             A --> C[Scrape-latest-posts-from-news-sites]:::shell
-            A --> D[ChrisAI-research]:::shell
-            A --> E[veille-IA-CR-auto]:::shell
+            A --> D[manage-newsletters]:::shell
+            A --> E[ChrisAI-research]:::shell
             A --> F[Monitoring AI tools]:::shell
             A --> G[newsletter]:::shell
         end
@@ -157,6 +159,16 @@ graph LR
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
 ``````
+
+## Linux machine
+
+### Linux crontab
+
+
+
+### Shell scripts
+
+
 
 ## Podcast Watchdog
 
@@ -340,14 +352,14 @@ graph LR
     classDef tfile fill:#888, color:#333
 ``````
 
-## Monitoring AI tools
+## ChrisAI-research
 
 ### Flowchart
 
 ```mermaid
 graph LR
     goto-project
-    click goto-project "https://github.com/ChristianPRO1982/monitoring-ai-tools"
+    click goto-project "https://github.com/ChristianPRO1982/ChrisAI-research"
     style goto-project fill:#000, color:#00F
 
     subgraph machine[Linux machine]
@@ -366,14 +378,14 @@ graph LR
     classDef tfile fill:#888, color:#333
 ``````
 
-## ChrisAI-research
+## Monitoring AI tools
 
 ### Flowchart
 
 ```mermaid
 graph LR
     goto-project
-    click goto-project "https://github.com/ChristianPRO1982/ChrisAI-research"
+    click goto-project "https://github.com/ChristianPRO1982/monitoring-ai-tools"
     style goto-project fill:#000, color:#00F
 
     subgraph machine[Linux machine]
