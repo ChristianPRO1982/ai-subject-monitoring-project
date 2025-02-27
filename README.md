@@ -1,6 +1,11 @@
 # AI SUBJECT MONITORING PROJECT
 AI Subject Monitoring Project with mermaid
 
+[![Latest Release](https://img.shields.io/github/release/<user>/<repo>.svg)](https://github.com/ChristianPRO1982/ai-subject-monitoring-project)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/github/license/<user>/<repo>.svg)](https://github.com/ChristianPRO1982/ai-subject-monitoring-project/blob/main/LICENSE)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](https://github.com/ChristianPRO1982/ai-subject-monitoring-project/issues)
+
 ## Table of Contents
 
 - [Legend](#legend)
