@@ -208,12 +208,13 @@ graph LR
             E <-.->|SELECT + UPDATE| H
             C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::tfile
             D -->|📝 create| J[/📄 XX_podcast.txt/]:::file
-            D <-->|👁️‍🗨️ read & 🗑️ delete| I
+            D -->|🗑️ delete| I
         end
         
         subgraph transcription-API
             style transcription-API fill:#555, color:#FFF
             D <--> N[main.py: transcribe]:::fastapi
+            N -->|👁️‍🗨️ read| I
         end
         
         subgraph subg-mysql[Global DB]
