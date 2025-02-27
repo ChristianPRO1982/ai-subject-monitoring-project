@@ -1,6 +1,29 @@
 # AI SUBJECT MONITORING PROJECT
 AI Subject Monitoring Project with mermaid
 
+## Table of Contents
+
+- [Legend](#legend)
+- [Global workflow](#global-workflow)
+- [Podcast Watchdog](#podcast-watchdog)
+    - [Flowchart](#flowchart)
+    - [I/O API: transcription-API](#io-api-transcription-api)
+    - [I/O API: OpenAI API](#io-api-openai-api)
+- [Transcribe API](#transcribe-api)
+    - [Flowchart](#flowchart-1)
+- [Scraping news sites](#scraping-news-sites)
+    - [Flowchart](#flowchart-2)
+- [Manage newsletters](#manage-newsletters)
+    - [Flowchart](#flowchart-3)
+- [Monitoring AI tools](#monitoring-ai-tools)
+    - [Flowchart](#flowchart-4)
+- [ChrisAI-research](#chrisairesearch)
+    - [Flowchart](#flowchart-5)
+- [Global DB](#global-db)
+    - [Flowchart](#flowchart-6)
+- [Newsletter](#newsletter)
+    - [Flowchart](#flowchart-7)
+
 ## Legend
 
 ``````mermaid
@@ -190,7 +213,7 @@ graph LR
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
 
-            F -.->|INSERT| subg-mysql-A[(ai-subject-monitoring)]:::mysql
+            F -.->|INSERT| subg-mysql-A[(🚧ai-subject-monitoring🚧)]:::mysql
             H -.->|SELECT| F
         end
     end
