@@ -214,7 +214,7 @@ graph LR
         subgraph transcription-API
             style transcription-API fill:#555, color:#FFF
             D <--> N[main.py: transcribe]:::fastapi
-            N -->|👁️‍🗨️ read| I
+            I -->|👁️‍🗨️ read| N
         end
         
         subgraph subg-mysql[Global DB]
