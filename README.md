@@ -82,8 +82,7 @@ graph LR
             A --> C[Scrape-latest-posts-from-news-sites]:::shell
             A --> D[manage-newsletters]:::shell
             A --> E[ChrisAI-research]:::shell
-            A --> F[Monitoring AI tools]:::shell
-            A --> G[newsletter]:::shell
+            A --> F[newsletter]:::shell
         end
 
 
@@ -92,8 +91,8 @@ graph LR
 
             B -->|main.py| subg-b-A[python POO]:::python
 
-            dbpodcast[(podcast.db)]:::sqlite
-            transcribe[/📂 podcast_transcribed.txt/]:::file
+            subg-b-A <-.-> dbpodcast[(podcast.db)]:::sqlite
+            subg-b-A <--> transcribe[/📂 podcast_transcribed.txt/]:::file
         end
 
         subgraph subg-c[Scraping news sites]
@@ -111,32 +110,32 @@ graph LR
             E -->|main.py| subg-e-A[🚧 under construction 🚧]:::python
         end
 
-        subgraph subg-f[Monitoring AI tools]
-            style subg-f fill:#363, color:#FFF
-            F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
+        subgraph subg-g[Monitoring AI tools]
+            style subg-g fill:#88A, color:#FFF
+            G((manual launch)) --> subg-g-A[python]:::python
         end
 
         subgraph transcription-API
             style transcription-API fill:#88A, color:#FFF
-            subg-b-A <--> subg-APIs-A[main.py: transcribe]:::fastapi
+            subg-b-A <-->|EndPoint:transcribe| subg-APIs-A[main.py: transcribe]:::fastapi
         end
 
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
             info1[🚧 under construction 🚧]
-            subg-b-A --> subg-mysql-A[(ai-subject-monitoring)]:::mysql
-            subg-c-A --> subg-mysql-A
-            subg-d-A --> subg-mysql-A
-            subg-e-A --> subg-mysql-A
-            subg-f-A --> subg-mysql-A
+            subg-b-A -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
+            subg-c-A -.-> subg-mysql-A
+            subg-d-A -.-> subg-mysql-A
+            subg-e-A -.-> subg-mysql-A
+            subg-g-A -.-> subg-mysql-A
         end
 
-        subgraph subg-g[Newsletter]
-            style subg-g fill:#363, color:#FFF
+        subgraph subg-f[Newsletter]
+            style subg-f fill:#363, color:#FFF
             
-            G -->|main.py| subg-g-A[🚧 under construction 🚧]:::python
-            subg-mysql-A --> subg-g-A
-            subg-g-A --> subg-g-B((Send newsletter))
+            F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
+            subg-mysql-A -.-> subg-f-A
+            subg-f-A --> subg-f-B((Send newsletter))
         end
     end
 
@@ -145,7 +144,7 @@ graph LR
         
         subgraph OpenAI-API
             style OpenAI-API fill:#555, color:#FFF
-            subg-b-A <--> subg-APIs-B[main.py: summarize]:::openai
+            subg-b-A <-->|role + prompt > txt| subg-APIs-B(openai):::openai
         end
     end
 
@@ -179,7 +178,12 @@ graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
     style goto-project fill:#000, color:#00F
-
+    
+    subgraph openai[OpenAI]
+        style openai fill:#555, color:#FFF
+        O[API]:::openai
+    end
+    
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
@@ -190,9 +194,20 @@ graph LR
 
         subgraph pw[Podcast Watchdog]
             style pw fill:#88A, color:#FFF
-
+            
             ai-json[/⚙️ ai_rss_feeds.json/]:::file
             prompt-json[/⚙️ ai_rss_prompts.json/]:::file
+
+            subgraph SQLite
+                style SQLite fill:#88A, color:#FFF
+                H[(podcast.db)]:::sqlite
+            end
+
+            subgraph of[output folder]
+                style of fill:#88A, color:#FFF
+                J[/📄 XX_podcast.txt/]:::file
+                I[\🎧 XX_podcast.mp3\]:::tfile
+            end
 
             A ==> main[main.py]:::python
             main ==> B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
@@ -202,31 +217,28 @@ graph LR
             main ==> F[05: Global DB]:::python
             ai-json --> B
             prompt-json --> E
-            B -.->|INSERT| H[(podcast.db)]:::sqlite
+            B -.->|INSERT| H
             C <-.->|SELECT + UPDATE| H
             D <-.->|SELECT + UPDATE| H
             E <-.->|SELECT + UPDATE| H
-            C -->|📝 create| I[\🎧 XX_podcast.mp3\]:::tfile
-            D -->|📝 create| J[/📄 XX_podcast.txt/]:::file
-            D <-->|👁️‍🗨️ read & 🗑️ delete| I
+            E <-->|role + prompt > txt| O[API]:::openai
+            C -->|📝 create| I
+            D -->|📝 create| J
+            D -->|🗑️ delete| I
         end
         
         subgraph transcription-API
             style transcription-API fill:#555, color:#FFF
-            D <--> N[main.py: transcribe]:::fastapi
+            D <-->|EndPoint:transcribe| N[main.py: transcribe]:::fastapi
+            N -->|👁️‍🗨️ read| I
         end
         
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
 
             F -.->|INSERT| subg-mysql-A[(🚧ai-subject-monitoring🚧)]:::mysql
-            H -.->|SELECT| F
+            F -.->|SELECT| H
         end
-    end
-
-    subgraph openai[OpenAI]
-        style openai fill:#555, color:#FFF
-        E <--> O[API]:::openai
     end
 
 
