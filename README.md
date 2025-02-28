@@ -279,18 +279,18 @@ sequenceDiagram
 ### Flowchart
 
 ```mermaid
-graph LR
+graph TB
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/transcription-API"
     style goto-project fill:#000, color:#00F
 
+    subgraph app
+        style app fill:#555, color:#FFF
+        A((call))
+    end
+
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
-        
-        subgraph app
-            style app fill:#555, color:#FFF
-            A((call))
-        end
 
         subgraph ta[Transcribe API]
             style ta fill:#88A, color:#FFF
@@ -301,7 +301,7 @@ graph LR
             EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
             UTILS -->|"(text, error)"| EP-TRANSCRIBE
 
-            UTILS <--> WHISPER["model = whisper.load_model('base')"]
+            UTILS <--> WHISPER("model = whisper.load_model('base')")
         end
     end
 
