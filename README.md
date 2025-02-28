@@ -6,7 +6,6 @@ AI Subject Monitoring Project with mermaid
 [![License](https://img.shields.io/github/license/ChristianPRO1982/ai-subject-monitoring-project.svg)](https://github.com/ChristianPRO1982/ai-subject-monitoring-project/blob/main/LICENSE)
 
 <details>
-
   <summary><strong>📌 Table of Contents</strong></summary>
 
   * [Legend](#legend)
@@ -178,10 +177,14 @@ graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
     style goto-project fill:#000, color:#00F
-    
-    subgraph openai[OpenAI]
-        style openai fill:#555, color:#FFF
-        O[API]:::openai
+
+    subgraph APIs[external APIs]
+        style APIs fill:#777, color:#FFF
+        
+        subgraph OpenAI-API
+            style OpenAI-API fill:#555, color:#FFF
+             O[API]:::openai
+        end
     end
     
     subgraph machine[Linux machine]
