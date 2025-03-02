@@ -26,19 +26,22 @@ graph LR
     subgraph Legend [Legend]
         style Legend fill:#DDD, color:#000
 
-        subgraph package[Developed package]
-            style package fill:#88A, color:#FFF
-            example1((example))
-        end
+        subgraph machine
+            style machine fill:#777, color:#FFF
+            subgraph package[Developed package]
+                style package fill:#88A, color:#FFF
+                example1((example))
+            end
+    
+            subgraph not-package[Not developed package]
+                style not-package fill:#555, color:#FFF
+                example2((example))
+            end
 
-        subgraph not-package[Not developed package]
-            style not-package fill:#555, color:#FFF
-            example2((example))
-        end
-
-        subgraph dev[🚧 under construction 🚧]
-            style dev fill:#363, color:#FFF
-            example3((example))
+            subgraph dev[🚧 under construction 🚧]
+                style dev fill:#363, color:#FFF
+                example3((example))
+            end
         end
 
         L1[python scripts]:::python
