@@ -44,14 +44,28 @@ graph LR
             end
         end
 
-        L1[python scripts]:::python
-        L2[Linux shell]:::shell
-        L3[FastAPI]:::fastapi
-        L4[OpenAI]:::openai
-        L5[(MySQL)]:::mysql
-        L6[(SQLite)]:::sqlite
-        Lf1[/📃 files/]:::file
-        Lf2[\📃 temporary file\]:::tfile
+        subgraph code
+            style code fill:#DDD, color:#000
+            
+            L1[python scripts]:::python
+            L2[Linux shell]:::shell
+            L3[FastAPI]:::fastapi
+            L4[OpenAI]:::openai
+        end
+
+        subgraph DBMS
+            style DBMS fill:#DDD, color:#000
+
+            L5[(MySQL)]:::mysql
+            L6[(SQLite)]:::sqlite
+        end
+
+        subgraph files
+            style files fill:#DDD, color:#000
+
+            Lf1[/📃 files/]:::file
+            Lf2[\📃 temporary file\]:::tfile
+        end
     end
     
 
