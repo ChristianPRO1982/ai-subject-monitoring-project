@@ -21,7 +21,7 @@ AI Subject Monitoring Project with mermaid
 
 ## Legend
 
-``````mermaid
+```mermaid
 graph LR
     subgraph Legend [Legend]
         style Legend fill:#DDD, color:#000
@@ -77,11 +77,11 @@ graph LR
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Global workflow
 
-``````mermaid
+```mermaid
 graph LR
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
@@ -173,7 +173,7 @@ graph LR
     classDef shell fill:#000, color:#49F75C
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Linux machine
 
@@ -215,16 +215,19 @@ graph LR
         subgraph pw[Podcast Watchdog]
             style pw fill:#88A, color:#FFF
             
-            ai-json[/⚙️ ai_rss_feeds.json/]:::file
-            prompt-json[/⚙️ ai_rss_prompts.json/]:::file
+            subgraph in-f[input folder]
+                style in-f fill:#88A, color:#FFF
+                ai-json[/⚙️ ai_rss_feeds.json/]:::file
+                prompt-json[/⚙️ ai_rss_prompts.json/]:::file
+            end
 
             subgraph SQLite
                 style SQLite fill:#88A, color:#FFF
                 H[(podcast.db)]:::sqlite
             end
 
-            subgraph of[output folder]
-                style of fill:#88A, color:#FFF
+            subgraph out-f[output folder]
+                style out-f fill:#88A, color:#FFF
                 J[/📄 XX_podcast.txt/]:::file
                 I[\🎧 XX_podcast.mp3\]:::tfile
             end
@@ -242,6 +245,7 @@ graph LR
             D <-.->|SELECT + UPDATE| H
             E <-.->|SELECT + UPDATE| H
             E <-->|role + prompt > txt| O[API]:::openai
+            J -->|👁️‍🗨️ read| E
             C -->|📝 create| I
             D -->|📝 create| J
             D -->|🗑️ delete| I
@@ -269,27 +273,118 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
+
+```mermaid
+graph LR
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
+    style goto-project fill:#000, color:#00F
+
+    subgraph APIs[external APIs]
+        style APIs fill:#777, color:#FFF
+        
+        subgraph OpenAI-API
+            style OpenAI-API fill:#555, color:#FFF
+            o-api[API]:::openai
+        end
+    end
+    
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+        
+        subgraph linux[Linux]
+            style linux fill:#555, color:#FFF
+            ct((Crontab))
+        end
+
+        subgraph pw[Podcast Watchdog]
+            style pw fill:#88A, color:#FFF
+
+            pw00[main.py]:::python
+            pw01[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
+            pw02[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
+            pw03[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
+            pw04[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
+            pw05[05: Global DB]:::python
+
+            subgraph SQLite
+                style SQLite fill:#88A, color:#FFF
+                pcdb[(podcast.db)]:::sqlite
+            end
+            
+            subgraph in-f[input folder]
+                style in-f fill:#88A, color:#FFF
+                ai-json[/⚙️ ai_rss_feeds.json/]:::file
+                prompt-json[/⚙️ ai_rss_prompts.json/]:::file
+            end
+
+            subgraph out-f[output folder]
+                style out-f fill:#88A, color:#FFF
+                pcmp3[\🎧 XX_podcast.mp3\]:::tfile
+                pctxt[/📄 XX_podcast.txt/]:::file
+            end
+
+           
+        end
+        
+        subgraph transcription-API
+            style transcription-API fill:#555, color:#FFF
+            t-api[main.py: transcribe]:::fastapi
+        end
+        
+        subgraph mysql[Global DB]
+            style mysql fill:#363, color:#FFF
+            mon-mysql[(🚧ai-subject-monitoring🚧)]:::mysql
+        end
+    end
+
+
+    ct ==> pw00
+    pw00 ==> pw01
+    ai-json --> pw01
+    pw00 ==> pw02
+    pw02 -->| create| pcmp3
+    pw00 ==> pw03
+    pw03 <--> t-api
+    pw03 -->| delete| pcmp3
+    pw03 -->| create| pctxt
+    t-api -->| read| pcmp3
+    pw00 ==> pw04
+    prompt-json --> pw04
+    pw04 <--> o-api
+    pw00 ==> pw05
+    pw05 --> mon-mysql
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+```
 
 ### I/O API: transcription-API
 
-``````mermaid
+```mermaid
 sequenceDiagram
     participant podcast-watchdog
     participant transcription-API
     podcast-watchdog->>transcription-API: API Request [POST]: file_path: str
     transcription-API-->>podcast-watchdog: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
-``````
+```
 
 ### I/O API: OpenAI API
 
-``````mermaid
+```mermaid
 sequenceDiagram
     participant podcast-watchdog
     participant OpenAI
     podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
     OpenAI-->>podcast-watchdog: message
-``````
+```
 
 ## Transcribe API
 
@@ -330,7 +425,7 @@ graph TB
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Scraping news sites
 
@@ -356,7 +451,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Manage newsletters
 
@@ -382,7 +477,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## ChrisAI-research
 
@@ -408,7 +503,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Monitoring AI tools
 
@@ -434,7 +529,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Global DB
 
@@ -460,7 +555,7 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
 
 ## Newsletter
 
@@ -486,4 +581,4 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
-``````
+```
