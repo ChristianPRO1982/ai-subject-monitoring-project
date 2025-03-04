@@ -24,7 +24,7 @@ AI Subject Monitoring Project with mermaid
 ```mermaid
 graph LR
     subgraph Legend [Legend]
-        style Legend fill:#DDD, color:#000
+        style Legend fill:#777, color:#000
 
         subgraph machine
             style machine fill:#777, color:#FFF
@@ -45,7 +45,7 @@ graph LR
         end
 
         subgraph code
-            style code fill:#DDD, color:#000
+            style code fill:#777, color:#000
             
             L1[python scripts]:::python
             L2[Linux shell]:::shell
@@ -54,17 +54,35 @@ graph LR
         end
 
         subgraph DBMS
-            style DBMS fill:#DDD, color:#000
+            style DBMS fill:#777, color:#000
 
             L5[(MySQL)]:::mysql
             L6[(SQLite)]:::sqlite
         end
 
         subgraph files
-            style files fill:#DDD, color:#000
+            style files fill:#777, color:#000
 
             Lf1[/📃 files/]:::file
             Lf2[\📃 temporary file\]:::tfile
+        end
+
+        subgraph actions[Actions emoji]
+            style actions fill:#777, color:#000
+
+            a1(SQL SELECT) -->|👁️‍🗨️| a2(Database)
+            a3(SQL INSERT) -->|🆕| a4(Database)
+            a5(SQL UPDATE) -->|🔄| a6(Database)
+            a7(SQL DELETE) -->|🗑️| a8(Database)
+        end
+
+        subgraph sql[SQL emoji : SIUD]
+            style sql fill:#777, color:#000
+
+            s1(SQL SELECT) -.->|🎯| s2[(Database)]:::mysql
+            s3(SQL INSERT) -.->|🌱| s4[(Database)]:::sqlite
+            s5(SQL UPDATE) -.->|🚀| s6[(Database)]:::mysql
+            s7(SQL DELETE) -.->|⚰️| s8[(Database)]:::sqlite
         end
     end
     
@@ -340,19 +358,24 @@ graph LR
 
     ct ==> pw00
     pw00 ==> pw01
-    ai-json --> pw01
+    pw01 -->|👁️‍🗨️| ai-json
+    pw01 -.->|🌱| pcdb
     pw00 ==> pw02
-    pw02 -->| create| pcmp3
+    pw02 -->|🆕| pcmp3
+    pw02 -.->|🎯🚀| pcdb
     pw00 ==> pw03
     pw03 <--> t-api
-    pw03 -->| delete| pcmp3
-    pw03 -->| create| pctxt
-    t-api -->| read| pcmp3
+    t-api -->|👁️‍🗨️| pcmp3
+    pw03 -->|🆕| pctxt
+    pw03 -->|🗑️| pcmp3
+    pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
     pw04 <--> o-api
-    prompt-json --> pw04
+    pw04 -->|👁️‍🗨️| prompt-json
+    pw04 -.->|🎯🚀| pcdb
     pw00 ==> pw05
-    pw05 ==> mon-mysql
+    pw05 -.->|🎯🚀| pcdb
+    pw05 ==>|🌱| mon-mysql
 
 
     classDef python fill:#FFDC52, color:#000;
