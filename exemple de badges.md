@@ -31,3 +31,7 @@
 others
 
 📄🚧⚙️🎧👁️‍🗨️
+
+## Mermaid flowchart code
+
+https://mermaid.js.org/syntax/flowchart.html
