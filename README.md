@@ -209,7 +209,7 @@ graph LR
         
         subgraph linux[Linux]
             style linux fill:#555, color:#FFF
-            A((Chrontab))
+            A((Crontab))
         end
 
         subgraph pw[Podcast Watchdog]
@@ -290,7 +290,7 @@ graph LR
         end
     end
     
-    subgraph machine[Linux machine]
+    subgraph machine[Linux machine NEW]
         style machine fill:#777, color:#FFF
         
         subgraph linux[Linux]
@@ -324,8 +324,6 @@ graph LR
                 pcmp3[\🎧 XX_podcast.mp3\]:::tfile
                 pctxt[/📄 XX_podcast.txt/]:::file
             end
-
-           
         end
         
         subgraph transcription-API
@@ -351,10 +349,10 @@ graph LR
     pw03 -->| create| pctxt
     t-api -->| read| pcmp3
     pw00 ==> pw04
-    prompt-json --> pw04
     pw04 <--> o-api
+    prompt-json --> pw04
     pw00 ==> pw05
-    pw05 --> mon-mysql
+    pw05 ==> mon-mysql
 
 
     classDef python fill:#FFDC52, color:#000;
