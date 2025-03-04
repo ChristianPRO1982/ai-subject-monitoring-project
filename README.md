@@ -139,18 +139,18 @@ graph LR
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
             info1[🚧 under construction 🚧]
-            subg-b-A -.-> subg-mysql-A[(ai-subject-monitoring)]:::mysql
-            subg-c-A -.-> subg-mysql-A
-            subg-d-A -.-> subg-mysql-A
-            subg-e-A -.-> subg-mysql-A
-            subg-g-A -.-> subg-mysql-A
+            subg-b-A -.->|🌱| subg-mysql-A[(ai-subject-monitoring)]:::mysql
+            subg-c-A -.->|🌱| subg-mysql-A
+            subg-d-A -.->|🌱| subg-mysql-A
+            subg-e-A -.->|🌱| subg-mysql-A
+            subg-g-A -.->|🌱| subg-mysql-A
         end
 
         subgraph subg-f[Newsletter]
             style subg-f fill:#363, color:#FFF
             
             F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
-            subg-mysql-A -.-> subg-f-A
+            subg-f-A -.->|🎯🚀| subg-mysql-A
             subg-f-A --> subg-f-B((Send newsletter))
         end
     end
