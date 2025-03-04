@@ -239,11 +239,16 @@ graph LR
             style pw fill:#88A, color:#FFF
 
             pw00[main.py]:::python
-            pw01[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
-            pw02[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
-            pw03[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
-            pw04[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
-            pw05[05: Global DB]:::python
+            pw01@{ shape: subproc, label: "01: parse feeds RSS - utils_parse_rss.py ParseRSS" }
+            pw01:::python
+            pw02@{ shape: subproc, label: "02: download mp3 - utils_podcast.py Podcasts.download_podcasts" }
+            pw02:::python
+            pw03@{ shape: subproc, label: "03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts" }
+            pw03:::python
+            pw04@{ shape: subproc, label: "04: summarize - utils_podcast.py Podcasts.summarize_podcasts" }
+            pw04:::python
+            pw05@{ shape: subproc, label: "05: Global DB" }
+            pw05:::python
 
             subgraph SQLite
                 style SQLite fill:#88A, color:#FFF
@@ -280,24 +285,28 @@ graph LR
 
 
     ct ==> pw00
-    pcdb o-.-o|🌱| pw01
-    pcdb o-.-o|🎯🚀| pw02
-    pcdb o-.-o|🎯🚀| pw03
-    pcdb o-.-o|🎯🚀| pw04
-    pcdb o-.-o|🎯🚀| pw05
     pw00 ==> pw01
     pw01 -->|👁️‍🗨️| ai-json
+    pw01 -.->|🌱| pcdb
     pw00 ==> pw02
+    pw01 --> pw02
     pw02 -->|🆕| pcmp3
+    pw02 -.->|🎯🚀| pcdb
     pw00 ==> pw03
+    pw02 --> pw03
     pw03 <--> t-api
     t-api -->|👁️‍🗨️| pcmp3
     pw03 -->|🆕| pctxt
     pw03 -->|🗑️| pcmp3
+    pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
+    pw03 --> pw04
     pw04 <--> o-api
     pw04 -->|👁️‍🗨️| prompt-json
+    pw04 -.->|🎯🚀| pcdb
     pw00 ==> pw05
+    pw04 --> pw05
+    pw05 -.->|🎯🚀| pcdb
     pw05 -...->|🌱| mon-mysql
 
 
