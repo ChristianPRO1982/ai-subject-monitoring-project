@@ -63,8 +63,12 @@ graph LR
         subgraph files
             style files fill:#777, color:#000
 
-            Lf1[/📃 files/]:::file
-            Lf2[\📃 temporary file\]:::tfile
+            Lf1@{ shape: doc, label: "📄 File" }
+            Lf1:::file
+            Lf2@{ shape: docs, label: "📃 files" }
+            Lf2:::file
+            Lf3@{ shape: docs, label: "📃 temporary files" }
+            Lf3:::tfile
         end
 
         subgraph actions[Actions emoji]
@@ -126,7 +130,8 @@ graph LR
             B -->|main.py| subg-b-A[python POO]:::python
 
             subg-b-A <-.-> dbpodcast[(podcast.db)]:::sqlite
-            subg-b-A <--> transcribe[/📂 podcast_transcribed.txt/]:::file
+            subg-b-A <--> transcribe@{ shape: docs, label: "📃 XX_podcast.txt" }
+            transcribe:::file
         end
 
         subgraph subg-c[Scraping news sites]
@@ -156,7 +161,7 @@ graph LR
 
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
-            info1[🚧 under construction 🚧]
+            info1[/🚧 under construction 🚧/]
             subg-b-A -.->|🌱| subg-mysql-A[(ai-subject-monitoring)]:::mysql
             subg-c-A -.->|🌱| subg-mysql-A
             subg-d-A -.->|🌱| subg-mysql-A
@@ -218,97 +223,11 @@ graph LR
         
         subgraph OpenAI-API
             style OpenAI-API fill:#555, color:#FFF
-             O[API]:::openai
-        end
-    end
-    
-    subgraph machine[Linux machine]
-        style machine fill:#777, color:#FFF
-        
-        subgraph linux[Linux]
-            style linux fill:#555, color:#FFF
-            A((Crontab))
-        end
-
-        subgraph pw[Podcast Watchdog]
-            style pw fill:#88A, color:#FFF
-            
-            subgraph in-f[input folder]
-                style in-f fill:#88A, color:#FFF
-                ai-json[/⚙️ ai_rss_feeds.json/]:::file
-                prompt-json[/⚙️ ai_rss_prompts.json/]:::file
-            end
-
-            subgraph SQLite
-                style SQLite fill:#88A, color:#FFF
-                H[(podcast.db)]:::sqlite
-            end
-
-            subgraph out-f[output folder]
-                style out-f fill:#88A, color:#FFF
-                J[/📄 XX_podcast.txt/]:::file
-                I[\🎧 XX_podcast.mp3\]:::tfile
-            end
-
-            A ==> main[main.py]:::python
-            main ==> B[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
-            main ==> C[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
-            main ==> D[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
-            main ==> E[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
-            main ==> F[05: Global DB]:::python
-            ai-json --> B
-            prompt-json --> E
-            B -.->|INSERT| H
-            C <-.->|SELECT + UPDATE| H
-            D <-.->|SELECT + UPDATE| H
-            E <-.->|SELECT + UPDATE| H
-            E <-->|role + prompt > txt| O[API]:::openai
-            J -->|👁️‍🗨️ read| E
-            C -->|📝 create| I
-            D -->|📝 create| J
-            D -->|🗑️ delete| I
-        end
-        
-        subgraph transcription-API
-            style transcription-API fill:#555, color:#FFF
-            D <-->|EndPoint:transcribe| N[main.py: transcribe]:::fastapi
-            N -->|👁️‍🗨️ read| I
-        end
-        
-        subgraph subg-mysql[Global DB]
-            style subg-mysql fill:#363, color:#FFF
-
-            F -.->|INSERT| subg-mysql-A[(🚧ai-subject-monitoring🚧)]:::mysql
-            F -.->|SELECT| H
-        end
-    end
-
-
-    classDef python fill:#FFDC52, color:#000;
-    classDef fastapi fill:#059286, color:#45D2C6
-    classDef openai fill:#FFF, color:#000;
-    classDef mysql fill:#00618B, color:#40A1CB
-    classDef sqlite fill:#4FC0FC, color:#0F80CC
-    classDef file fill:#BBB, color:#333
-    classDef tfile fill:#888, color:#333
-```
-
-```mermaid
-graph LR
-    goto-project
-    click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
-    style goto-project fill:#000, color:#00F
-
-    subgraph APIs[external APIs]
-        style APIs fill:#777, color:#FFF
-        
-        subgraph OpenAI-API
-            style OpenAI-API fill:#555, color:#FFF
             o-api[API]:::openai
         end
     end
     
-    subgraph machine[Linux machine NEW]
+    subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
         subgraph linux[Linux]
@@ -331,20 +250,20 @@ graph LR
                 pcdb[(podcast.db)]:::sqlite
             end
             
-            subgraph ff[Folders & files]
-                style ff fill:#88A, color:#FFF
+            subgraph in-f[input folder]
+                style in-f fill:#88A, color:#FFF
+                ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
+                ai-json:::file
+                prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
+                prompt-json:::file
+            end
 
-                subgraph in-f[input folder]
-                    style in-f fill:#88A, color:#FFF
-                    ai-json[/⚙️ ai_rss_feeds.json/]:::file
-                    prompt-json[/⚙️ ai_rss_prompts.json/]:::file
-                end
-
-                subgraph out-f[output folder]
-                    style out-f fill:#88A, color:#FFF
-                    pcmp3[\🎧 XX_podcast.mp3\]:::tfile
-                    pctxt[/📄 XX_podcast.txt/]:::file
-                end
+            subgraph out-f[output folder]
+                style out-f fill:#88A, color:#FFF
+                pcmp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
+                pcmp3:::tfile
+                pctxt@{ shape: docs, label: "📃 XX_podcast.txt" }
+                pctxt:::file
             end
         end
         
@@ -361,25 +280,25 @@ graph LR
 
 
     ct ==> pw00
+    pcdb -.-o|🌱| pw01
+    pcdb -.-o|🎯🚀| pw02
+    pcdb -.-o|🎯🚀| pw03
+    pcdb -.-o|🎯🚀| pw04
+    pcdb -.-o|🎯🚀| pw05
     pw00 ==> pw01
     pw01 -->|👁️‍🗨️| ai-json
-    pw01 -.->|🌱| pcdb
     pw00 ==> pw02
     pw02 -->|🆕| pcmp3
-    pw02 -.->|🎯🚀| pcdb
     pw00 ==> pw03
     pw03 <--> t-api
     t-api -->|👁️‍🗨️| pcmp3
     pw03 -->|🆕| pctxt
     pw03 -->|🗑️| pcmp3
-    pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
     pw04 <--> o-api
     pw04 -->|👁️‍🗨️| prompt-json
-    pw04 -.->|🎯🚀| pcdb
     pw00 ==> pw05
-    pw05 -.->|🎯🚀| pcdb
-    pw05 ==>|🌱| mon-mysql
+    pw05 -...->|🌱| mon-mysql
 
 
     classDef python fill:#FFDC52, color:#000;
