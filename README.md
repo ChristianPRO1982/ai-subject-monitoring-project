@@ -331,16 +331,20 @@ graph LR
                 pcdb[(podcast.db)]:::sqlite
             end
             
-            subgraph in-f[input folder]
-                style in-f fill:#88A, color:#FFF
-                ai-json[/⚙️ ai_rss_feeds.json/]:::file
-                prompt-json[/⚙️ ai_rss_prompts.json/]:::file
-            end
+            subgraph ff[Folders & files]
+                style ff fill:#88A, color:#FFF
 
-            subgraph out-f[output folder]
-                style out-f fill:#88A, color:#FFF
-                pcmp3[\🎧 XX_podcast.mp3\]:::tfile
-                pctxt[/📄 XX_podcast.txt/]:::file
+                subgraph in-f[input folder]
+                    style in-f fill:#88A, color:#FFF
+                    ai-json[/⚙️ ai_rss_feeds.json/]:::file
+                    prompt-json[/⚙️ ai_rss_prompts.json/]:::file
+                end
+
+                subgraph out-f[output folder]
+                    style out-f fill:#88A, color:#FFF
+                    pcmp3[\🎧 XX_podcast.mp3\]:::tfile
+                    pctxt[/📄 XX_podcast.txt/]:::file
+                end
             end
         end
         
