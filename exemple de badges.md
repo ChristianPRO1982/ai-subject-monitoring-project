@@ -23,3 +23,7 @@
 ## 🤝 Contribution
 
 [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](https://github.com/<user>/<repo>/issues)
+
+## SIUD emojis
+
+🔍➕✏️❌ / 📋🆕🔄🗑️ / 🎯🌱🚀⚰️ / 🧐📥🛠️💣 / 👀📌🔧🗑 / 🔎✚🔃🗡 / 🏷➕📝🔥 / 🔭📂⚙️🧨
