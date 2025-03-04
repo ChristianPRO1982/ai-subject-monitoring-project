@@ -30,17 +30,17 @@ graph LR
             style machine fill:#777, color:#FFF
             subgraph package[Developed package]
                 style package fill:#88A, color:#FFF
-                example1((example))
+                example1([example])
             end
     
             subgraph not-package[Not developed package]
                 style not-package fill:#555, color:#FFF
-                example2((example))
+                example2([example])
             end
 
             subgraph dev[🚧 under construction 🚧]
                 style dev fill:#363, color:#FFF
-                example3((example))
+                example3([example])
             end
         end
 
@@ -65,19 +65,19 @@ graph LR
 
             Lf1@{ shape: doc, label: "📄 File" }
             Lf1:::file
-            Lf2@{ shape: docs, label: "📃 files" }
+            Lf2@{ shape: docs, label: "📄 files" }
             Lf2:::file
-            Lf3@{ shape: docs, label: "📃 temporary files" }
+            Lf3@{ shape: docs, label: "📄 temporary files" }
             Lf3:::tfile
         end
 
         subgraph actions[Actions emoji]
             style actions fill:#777, color:#000
 
-            a1(SQL SELECT) -->|👁️‍🗨️| a2(Database)
-            a3(SQL INSERT) -->|🆕| a4(Database)
-            a5(SQL UPDATE) -->|🔄| a6(Database)
-            a7(SQL DELETE) -->|🗑️| a8(Database)
+            a1(CODE) -->|👁️‍🗨️| a2(Database)
+            a3(CODE) -->|🆕| a4(Database)
+            a5(CODE) -->|🔄| a6(Database)
+            a7(CODE) -->|🗑️| a8(Database)
         end
 
         subgraph sql[SQL emoji : SIUD]
@@ -105,12 +105,21 @@ graph LR
 
 ```mermaid
 graph LR
+    subgraph APIs1[external APIs]
+        style APIs1 fill:#777, color:#FFF
+        
+        subgraph OpenAI
+            style OpenAI fill:#555, color:#FFF
+            subg-APIs-B(API):::openai
+        end
+    end
+
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
 
         subgraph crontab[Crontab]
             style crontab fill:#88A, color:#FFF
-            A((Crontab: weekly))
+            A([⏱️ Crontab: weekly])
         end
 
         subgraph scripts[Shell scripts]
@@ -130,8 +139,10 @@ graph LR
             B -->|main.py| subg-b-A[python POO]:::python
 
             subg-b-A <-.-> dbpodcast[(podcast.db)]:::sqlite
-            subg-b-A <--> transcribe@{ shape: docs, label: "📃 XX_podcast.txt" }
+            subg-b-A <--> transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
             transcribe:::file
+
+            subg-b-A <-->|role + prompt > txt| subg-APIs-B
         end
 
         subgraph subg-c[Scraping news sites]
@@ -140,8 +151,8 @@ graph LR
         end
 
         subgraph subg-d[Manage newsletters]
-            style subg-d fill:#363, color:#FFF
-            D -->|main.py| subg-d-A[🚧 under construction 🚧]:::python
+            style subg-d fill:#88A, color:#FFF
+            D -->|main.py| subg-d-A[python POO]:::python
         end
 
         subgraph subg-e[ChrisAI-research]
@@ -151,7 +162,7 @@ graph LR
 
         subgraph subg-g[Monitoring AI tools]
             style subg-g fill:#88A, color:#FFF
-            G((manual launch)) --> subg-g-A[python]:::python
+            G([🫳⌨️ manual launch]) --> subg-g-A[python]:::python
         end
 
         subgraph transcription-API
@@ -174,16 +185,15 @@ graph LR
             
             F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
             subg-f-A -.->|🎯🚀| subg-mysql-A
-            subg-f-A --> subg-f-B((Send newsletter))
         end
     end
 
-    subgraph APIs[external APIs]
-        style APIs fill:#777, color:#FFF
-        
-        subgraph OpenAI-API
-            style OpenAI-API fill:#555, color:#FFF
-            subg-b-A <-->|role + prompt > txt| subg-APIs-B(openai):::openai
+    subgraph APIs2[external APIs]
+        style APIs2 fill:#777, color:#FFF
+
+        subgraph Outlook
+            style Outlook fill:#555, color:#FFF
+            subg-f-A <-->|📬| subg-APIs-C(📧 API)
         end
     end
 
@@ -221,8 +231,8 @@ graph LR
     subgraph APIs[external APIs]
         style APIs fill:#777, color:#FFF
         
-        subgraph OpenAI-API
-            style OpenAI-API fill:#555, color:#FFF
+        subgraph OpenAI
+            style OpenAI fill:#555, color:#FFF
             o-api[API]:::openai
         end
     end
@@ -232,7 +242,7 @@ graph LR
         
         subgraph linux[Linux]
             style linux fill:#555, color:#FFF
-            ct((Crontab))
+            ct([⏱️ Crontab])
         end
 
         subgraph pw[Podcast Watchdog]
@@ -267,7 +277,7 @@ graph LR
                 style out-f fill:#88A, color:#FFF
                 pcmp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
                 pcmp3:::tfile
-                pctxt@{ shape: docs, label: "📃 XX_podcast.txt" }
+                pctxt@{ shape: docs, label: "📄 XX_podcast.txt" }
                 pctxt:::file
             end
         end
@@ -308,6 +318,12 @@ graph LR
     pw04 --> pw05
     pw05 -.->|🎯🚀| pcdb
     pw05 -...->|🌱| mon-mysql
+
+
+    linkStyle 5 stroke:#88A, stroke-width:0px;
+    linkStyle 9 stroke:#88A, stroke-width:0px;
+    linkStyle 16 stroke:#88A, stroke-width:0px;
+    linkStyle 21 stroke:#88A, stroke-width:0px;
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -361,7 +377,7 @@ graph TB
             style ta fill:#88A, color:#FFF
 
             A ==>|file_path: str| EP-TRANSCRIBE["ENDPOINT Transcribe [POST]"]:::python
-            EP-TRANSCRIBE -.->|"json:file_name / file_name / date_time / processing_time / transcription_text / error"| A
+            EP-TRANSCRIBE -.->|"json: file_name / file_name / date_time / processing_time / transcription_text / error"| A
 
             EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
             UTILS -->|"(text, error)"| EP-TRANSCRIBE
@@ -413,14 +429,73 @@ graph LR
 ```mermaid
 graph LR
     goto-project
-    click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
+    click goto-project "https://github.com/ChristianPRO1982/manage-newsletters"
     style goto-project fill:#000, color:#00F
+
+    subgraph APIs[external APIs]
+        style APIs fill:#777, color:#FFF
+        
+        subgraph Outlook
+            style Outlook fill:#555, color:#FFF
+            out-api[📧 API]
+        end
+    end
 
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
-        init
+        subgraph linux[Linux]
+            style linux fill:#555, color:#FFF
+            ct([⏱️ Crontab])
+        end
+
+        subgraph mn[Manage newsletters]
+            style mn fill:#88A, color:#FFF
+
+            subgraph out-f[output folder]
+                style out-f fill:#88A, color:#FFF
+                
+                NLtxt@{ shape: doc, label: "📄 NL_YYYY-MM-DD.txt" }
+                NLtxt:::file
+            end
+
+            mn00[main.py]:::python
+            mn01[01: search new NL - utils_email.py OutlookEmails.new]:::python
+            mn02[02: concact newsletters - utils_email.py AllEmails.concact]:::python
+            mn03[03: send newsletter - utils_email.py AllEmails.send]:::python
+            mn04[04: move newsletters - utils_email.py OutlookEmails.move]:::python
+            mn05[05: delete old newsletters - utils_email.py OutlookEmails.delete]:::python
+        end
+        
+        subgraph mysql[Global DB]
+            style mysql fill:#363, color:#FFF
+            mon-mysql[(🚧ai-subject-monitoring🚧)]:::mysql
+        end
     end
+
+
+    ct ==> mn00
+    mn00 ==> mn01
+    mn01 <--> out-api
+    mn00 ==> mn02
+    mn01 --> mn02
+    mn02 -.->|🌱| mon-mysql
+    mn02 --> NLtxt
+    mn00 ==> mn03
+    mn02 --> mn03
+    mn03 --> out-api
+    mn00 ==> mn04
+    mn03 --> mn04
+    mn04 --> out-api
+    mn00 ==> mn05
+    mn04 --> mn05
+    mn05 --> out-api
+
+
+    linkStyle 4 stroke:#88A, stroke-width:0px;
+    linkStyle 8 stroke:#88A, stroke-width:0px;
+    linkStyle 11 stroke:#88A, stroke-width:0px;
+    linkStyle 14 stroke:#88A, stroke-width:0px;
 
 
     classDef python fill:#FFDC52, color:#000;
