@@ -280,11 +280,11 @@ graph LR
 
 
     ct ==> pw00
-    pcdb -.-o|🌱| pw01
-    pcdb -.-o|🎯🚀| pw02
-    pcdb -.-o|🎯🚀| pw03
-    pcdb -.-o|🎯🚀| pw04
-    pcdb -.-o|🎯🚀| pw05
+    pcdb o-.-o|🌱| pw01
+    pcdb o-.-o|🎯🚀| pw02
+    pcdb o-.-o|🎯🚀| pw03
+    pcdb o-.-o|🎯🚀| pw04
+    pcdb o-.-o|🎯🚀| pw05
     pw00 ==> pw01
     pw01 -->|👁️‍🗨️| ai-json
     pw00 ==> pw02
