@@ -14,8 +14,8 @@ AI Subject Monitoring Project with mermaid
 | Linux machine | Podcast Watchdog | Transcrib API | News sites | Manage newsletters | ChrisAI-research | Monitoring AI tools | newsletter | Global DB |
 |---------------|------------------|---------------|------------|--------------------|------------------|---------------------|------------|-----------|
 | [Linux machine](#linux-machine) | [Podcast Watchdog](#podcast-watchdog) | [Transcribe API](#transcribe-api) | [Scraping news sites](#scraping-news-sites) | [Manage newsletters](#manage-newsletters) | [ChrisAI-research](#chrisai-research) | [Monitoring AI tools](#monitoring-ai-tools) | [Global DB](#global-db) | [Newsletter](#newsletter) |
-| [Linux crontab](#linux-crontab) | [Flowchart](#flowchart) |
-| [Shell scripts](#shell-scripts) | [I/O API: transcription-API](#io-api-transcription-api) |
+| [Linux crontab](#linux-crontab) | [Flowchart-1](#flowchart) | [Flowchart-1](#flowchart) |
+| [Shell scripts](#shell-scripts) | | [I/O API: transcription-API](#io-api-transcription-api) |
 || [I/O API: OpenAI API](#io-api-openai-api) |
 </details>
 
@@ -234,7 +234,7 @@ graph LR
 
 ## Podcast Watchdog
 
-### Flowchart
+### PW-Flowchart
 
 ```mermaid
 graph LR
@@ -351,7 +351,7 @@ graph LR
 
 ## Scraping news sites
 
-### Flowchart
+### NS-Flowchart
 
 ```mermaid
 graph LR
@@ -377,7 +377,7 @@ graph LR
 
 ## Manage newsletters
 
-### Flowchart
+### MN-Flowchart
 
 ```mermaid
 graph LR
@@ -468,7 +468,7 @@ graph LR
 
 ## ChrisAI-research
 
-### Flowchart
+### CAIR-Flowchart
 
 ```mermaid
 graph LR
@@ -494,7 +494,7 @@ graph LR
 
 ## Monitoring AI tools
 
-### Flowchart
+### MAIT-Flowchart
 
 ```mermaid
 graph LR
@@ -520,7 +520,7 @@ graph LR
 
 ## Global DB
 
-### Flowchart
+### GDB-Flowchart
 
 ```mermaid
 graph LR
@@ -546,7 +546,7 @@ graph LR
 
 ## Newsletter
 
-### Flowchart
+### N-Flowchart
 
 ```mermaid
 graph LR
@@ -574,7 +574,7 @@ graph LR
 
 ## Transcribe API
 
-### Flowchart
+### Tapi-Flowchart
 
 ```mermaid
 graph TB
