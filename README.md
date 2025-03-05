@@ -322,12 +322,12 @@ graph LR
 
     ct ==> pw00
     pw00 ==> pw01
-    pw01 -->|👁️‍🗨️| ai-json
     pw01 -.->|🌱| pcdb
+    pw01 -->|👁️‍🗨️| ai-json
     pw00 ==> pw02
     pw01 --> pw02
-    pw02 -->|🆕| pcmp3
     pw02 -.->|🎯🚀| pcdb
+    pw02 -->|🆕| pcmp3
     pw00 ==> pw03
     pw02 --> pw03
     pw03 <--> t-api
@@ -337,11 +337,12 @@ graph LR
     pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
     pw03 --> pw04
-    pw04 <--> o-api
+    pw04 -->|👁️‍🗨️| pctxt
     pw04 -->|👁️‍🗨️| prompt-json
     pw04 -.->|🎯🚀| pcdb
     pw00 ==> pw05
     pw04 --> pw05
+    pw04 <--> o-api
     pw05 -.->|🎯🚀| pcdb
     pw05 -...->|🌱| mon-mysql
 
