@@ -11,11 +11,18 @@ AI Subject Monitoring Project with mermaid
   * [Legend](#legend)
   * [Global workflow](#global-workflow)
 
-| Linux machine | Podcast Watchdog | News sites | Manage newsletters | ChrisAI-research | Monitoring AI tools | newsletter | Global DB | APIs |
-|---------------|------------------|------------|--------------------|------------------|---------------------|------------|-----------|------|
-| [Linux machine](#linux-machine) | [Flowchart](#PW-flowchart) | [Flowchart](#NS-flowchart) | [Flowchart](#MN-flowchart) | [Flowchart](#CAIR-flowchart) | [Flowchart](#MAIT-flowchart) | [Flowchart](#GDB-flowchart) | [Flowchart](#N-flowchart) | [Transcribe Flowchart](#Tapi-flowchart) |
-| [Linux crontab](#linux-crontab) | | | | | | | | [I/O API: transcription-API](#io-api-transcription-api) |
-| [Shell scripts](#shell-scripts) | | | | | | | | [I/O API: OpenAI API](#io-api-openai-api) |
+| Developement            | Link 1                                  | Link 2                                                  | Link 3                                    |
+|-------------------------|-----------------------------------------|---------------------------------------------------------|-------------------------------------------|
+| **Linux machine**       | [Linux machine](#linux-machine)         | [Linux crontab](#linux-crontab)                         | [Shell scripts](#shell-scripts)           |
+| **Podcast Watchdog**    | [Flowchart](#PW-flowchart)              |                                                         |                                           |
+| **News sites**          | [Flowchart](#NS-flowchart)              |                                                         |                                           |
+| **Manage newsletters**  | [Flowchart](#MN-flowchart)              |                                                         |                                           |
+| **ChrisAI-research**    | [Flowchart](#CAIR-flowchart)            |                                                         |                                           |
+| **Monitoring AI tools** | [Flowchart](#MAIT-flowchart)            |                                                         |                                           |
+| **Newsletter**          | [Flowchart](#N-flowchart)               |                                                         |                                           |
+| **Global DB**           | [Flowchart](#GDB-flowchart)             |                                                         |                                           |
+| **APIs**                | [Transcribe Flowchart](#Tapi-flowchart) | [I/O API: transcription-API](#io-api-transcription-api) | [I/O API: OpenAI API](#io-api-openai-api) |
+
 </details>
 
 # Global workflow
@@ -517,9 +524,9 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
-## Global DB
+## Newsletter
 
-### GDB-Flowchart
+### N-Flowchart
 
 ```mermaid
 graph LR
@@ -543,9 +550,9 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
-## Newsletter
+## Global DB
 
-### N-Flowchart
+### GDB-Flowchart
 
 ```mermaid
 graph LR
