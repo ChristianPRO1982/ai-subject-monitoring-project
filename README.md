@@ -89,7 +89,7 @@ graph LR
             Lf7@{ shape: doc, label: "📄 File" }
 
             a1(read file) -->|👁️‍🗨️| Lf4:::file
-            a3(create file) -->|🆕| Lf5:::file
+            a3(create file) -->|✚| Lf5:::file
             a5(update file) -->|🔄| Lf6:::file
             a7(delete file) -->|🗑️| Lf7:::file
         end
@@ -327,12 +327,12 @@ graph LR
     pw00 ==> pw02
     pw01 --> pw02
     pw02 -.->|🎯🚀| pcdb
-    pw02 -->|🆕| pcmp3
+    pw02 -->|✚| pcmp3
     pw00 ==> pw03
     pw02 --> pw03
     pw03 <--> t-api
     t-api -->|👁️‍🗨️| pcmp3
-    pw03 -->|🆕| pctxt
+    pw03 -->|✚| pctxt
     pw03 -->|🗑️| pcmp3
     pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
