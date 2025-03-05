@@ -11,12 +11,11 @@ AI Subject Monitoring Project with mermaid
   * [Legend](#legend)
   * [Global workflow](#global-workflow)
 
-| Linux machine | Podcast Watchdog | Transcrib API | News sites | Manage newsletters | ChrisAI-research | Monitoring AI tools | newsletter | Global DB |
-|---------------|------------------|---------------|------------|--------------------|------------------|---------------------|------------|-----------|
-| [Linux machine](#linux-machine) | [Podcast Watchdog](#podcast-watchdog) | [Transcribe API](#transcribe-api) | [Scraping news sites](#scraping-news-sites) | [Manage newsletters](#manage-newsletters) | [ChrisAI-research](#chrisai-research) | [Monitoring AI tools](#monitoring-ai-tools) | [Global DB](#global-db) | [Newsletter](#newsletter) |
-| [Linux crontab](#linux-crontab) | [Flowchart-1](#flowchart) | [Flowchart-1](#flowchart) |
-| [Shell scripts](#shell-scripts) | | [I/O API: transcription-API](#io-api-transcription-api) |
-|| [I/O API: OpenAI API](#io-api-openai-api) |
+| Linux machine | Podcast Watchdog | News sites | Manage newsletters | ChrisAI-research | Monitoring AI tools | newsletter | Global DB | APIs |
+|---------------|------------------|------------|--------------------|------------------|---------------------|------------|-----------|------|
+| [Linux machine](#linux-machine) | [Flowchart](#PW-flowchart) | [Flowchart](#NS-flowchart) | [Flowchart](#MN-flowchart) | [Flowchart](#CAIR-flowchart) | [Flowchart](#MAIT-flowchart) | [Flowchart](#GDB-flowchart) | [Flowchart](#N-flowchart) | [Transcribe Flowchart](#Tapi-flowchart) |
+| [Linux crontab](#linux-crontab) | | | | | | | | [I/O API: transcription-API](#io-api-transcription-api) |
+| [Shell scripts](#shell-scripts) | | | | | | | | [I/O API: OpenAI API](#io-api-openai-api) |
 </details>
 
 # Global workflow
