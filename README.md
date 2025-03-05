@@ -226,6 +226,8 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
+[Table of content](#ai-subject-monitoring-project)
+
 # Developments
 
 ## Linux machine
@@ -234,9 +236,13 @@ graph LR
 
 [...]
 
+[Table of content](#ai-subject-monitoring-project)
+
 ### Shell scripts
 
 [...]
+
+[Table of content](#ai-subject-monitoring-project)
 
 ## Podcast Watchdog
 
@@ -355,6 +361,8 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
+[Table of content](#ai-subject-monitoring-project)
+
 ## Scraping news sites
 
 ### NS-Flowchart
@@ -380,6 +388,8 @@ graph LR
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
 ```
+
+[Table of content](#ai-subject-monitoring-project)
 
 ## Manage newsletters
 
@@ -472,6 +482,8 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
+[Table of content](#ai-subject-monitoring-project)
+
 ## ChrisAI-research
 
 ### CAIR-Flowchart
@@ -497,6 +509,8 @@ graph LR
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
 ```
+
+[Table of content](#ai-subject-monitoring-project)
 
 ## Monitoring AI tools
 
@@ -524,6 +538,8 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
+[Table of content](#ai-subject-monitoring-project)
+
 ## Newsletter
 
 ### N-Flowchart
@@ -550,6 +566,8 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
+[Table of content](#ai-subject-monitoring-project)
+
 ## Global DB
 
 ### GDB-Flowchart
@@ -575,6 +593,8 @@ graph LR
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
 ```
+
+[Table of content](#ai-subject-monitoring-project)
 
 # APIs
 
@@ -619,6 +639,8 @@ graph TB
     classDef tfile fill:#888, color:#333
 ```
 
+[Table of content](#ai-subject-monitoring-project)
+
 ### I/O API: transcription-API
 
 ```mermaid
@@ -628,6 +650,8 @@ sequenceDiagram
     podcast-watchdog->>transcription-API: API Request [POST]: file_path: str
     transcription-API-->>podcast-watchdog: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
 ```
+
+[Table of content](#ai-subject-monitoring-project)
 
 ## OpenAI API
 
@@ -640,3 +664,5 @@ sequenceDiagram
     podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
     OpenAI-->>podcast-watchdog: message
 ```
+
+[Table of content](#ai-subject-monitoring-project)
