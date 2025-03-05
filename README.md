@@ -30,17 +30,17 @@ graph LR
             style machine fill:#777, color:#FFF
             subgraph package[Developed package]
                 style package fill:#88A, color:#FFF
-                example1([example])
+                example1[example]
             end
     
             subgraph not-package[Not developed package]
                 style not-package fill:#555, color:#FFF
-                example2([example])
+                example2[example]
             end
 
             subgraph dev[🚧 under construction 🚧]
                 style dev fill:#363, color:#FFF
-                example3([example])
+                example3[example]
             end
         end
 
@@ -74,10 +74,15 @@ graph LR
         subgraph actions[Actions emoji]
             style actions fill:#777, color:#000
 
-            a1(CODE) -->|👁️‍🗨️| a2(Database)
-            a3(CODE) -->|🆕| a4(Database)
-            a5(CODE) -->|🔄| a6(Database)
-            a7(CODE) -->|🗑️| a8(Database)
+            Lf4@{ shape: doc, label: "📄 File" }
+            Lf5@{ shape: doc, label: "📄 File" }
+            Lf6@{ shape: doc, label: "📄 File" }
+            Lf7@{ shape: doc, label: "📄 File" }
+
+            a1(read file) -->|👁️‍🗨️| Lf4:::file
+            a3(create file) -->|🆕| Lf5:::file
+            a5(update file) -->|🔄| Lf6:::file
+            a7(delete file) -->|🗑️| Lf7:::file
         end
 
         subgraph sql[SQL emoji : SIUD]
@@ -110,7 +115,7 @@ graph LR
         
         subgraph OpenAI
             style OpenAI fill:#555, color:#FFF
-            subg-APIs-B(API):::openai
+            subg-APIs-B[API]:::openai
         end
     end
 
@@ -119,7 +124,7 @@ graph LR
 
         subgraph crontab[Crontab]
             style crontab fill:#88A, color:#FFF
-            A([⏱️ Crontab: weekly])
+            A((⏱️ Crontab: weekly))
         end
 
         subgraph scripts[Shell scripts]
@@ -193,7 +198,7 @@ graph LR
 
         subgraph Outlook
             style Outlook fill:#555, color:#FFF
-            subg-f-A <-->|📬| subg-APIs-C(📧 API)
+            subg-f-A <-->|📬| subg-APIs-C[📧 API]
         end
     end
 
@@ -242,7 +247,7 @@ graph LR
         
         subgraph linux[Linux]
             style linux fill:#555, color:#FFF
-            ct([⏱️ Crontab])
+            ct((⏱️ Crontab))
         end
 
         subgraph pw[Podcast Watchdog]
@@ -382,7 +387,7 @@ graph TB
             EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
             UTILS -->|"(text, error)"| EP-TRANSCRIBE
 
-            UTILS <--> WHISPER("model = whisper.load_model('base')")
+            UTILS <--> WHISPER["model = whisper.load_model('base')"]
         end
     end
 
@@ -446,7 +451,7 @@ graph LR
         
         subgraph linux[Linux]
             style linux fill:#555, color:#FFF
-            ct([⏱️ Crontab])
+            ct((⏱️ Crontab))
         end
 
         subgraph mn[Manage newsletters]
@@ -460,11 +465,17 @@ graph LR
             end
 
             mn00[main.py]:::python
-            mn01[01: search new NL - utils_email.py OutlookEmails.new]:::python
-            mn02[02: concact newsletters - utils_email.py AllEmails.concact]:::python
-            mn03[03: send newsletter - utils_email.py AllEmails.send]:::python
-            mn04[04: move newsletters - utils_email.py OutlookEmails.move]:::python
-            mn05[05: delete old newsletters - utils_email.py OutlookEmails.delete]:::python
+
+            mn01@{ shape: subproc, label: "01: search new NL - utils_email.py OutlookEmails.new" }
+            mn01:::python
+            mn02@{ shape: subproc, label: "02: concact newsletters - utils_email.py AllEmails.concact" }
+            mn02:::python
+            mn03@{ shape: subproc, label: "03: send newsletter - utils_email.py AllEmails.send" }
+            mn03:::python
+            mn04@{ shape: subproc, label: "04: move newsletters - utils_email.py OutlookEmails.move" }
+            mn04:::python
+            mn05@{ shape: subproc, label: "05: delete old newsletters - utils_email.py OutlookEmails.delete" }
+            mn05:::python
         end
         
         subgraph mysql[Global DB]
@@ -476,20 +487,20 @@ graph LR
 
     ct ==> mn00
     mn00 ==> mn01
-    mn01 <--> out-api
+    mn01 <-->|📬| out-api
     mn00 ==> mn02
     mn01 --> mn02
     mn02 -.->|🌱| mon-mysql
     mn02 --> NLtxt
     mn00 ==> mn03
     mn02 --> mn03
-    mn03 --> out-api
+    mn03 -->|📨| out-api
     mn00 ==> mn04
     mn03 --> mn04
-    mn04 --> out-api
+    mn04 -->|🔀| out-api
     mn00 ==> mn05
     mn04 --> mn05
-    mn05 --> out-api
+    mn05 -->|🧨| out-api
 
 
     linkStyle 4 stroke:#88A, stroke-width:0px;
