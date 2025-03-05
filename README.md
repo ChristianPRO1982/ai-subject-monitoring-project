@@ -51,13 +51,14 @@ graph LR
             L2[Linux shell]:::shell
             L3[FastAPI]:::fastapi
             L4[OpenAI]:::openai
+            L5[Other]
         end
 
         subgraph DBMS
             style DBMS fill:#777, color:#000
 
-            L5[(MySQL)]:::mysql
-            L6[(SQLite)]:::sqlite
+            L6[(MySQL)]:::mysql
+            L7[(SQLite)]:::sqlite
         end
 
         subgraph files
