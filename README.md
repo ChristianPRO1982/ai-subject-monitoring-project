@@ -167,7 +167,9 @@ graph LR
 
         subgraph subg-g[Monitoring AI tools]
             style subg-g fill:#88A, color:#FFF
-            G([🫳⌨️ manual launch]) --> subg-g-A[python]:::python
+
+            G((🫳⌨️ manual launch)) --> subg-g-A[python]:::python
+            subg-g-A -.->|🌱| subg-g-B[(ai_tools.db)]:::sqlite
         end
 
         subgraph transcription-API
@@ -198,7 +200,9 @@ graph LR
 
         subgraph Outlook
             style Outlook fill:#555, color:#FFF
-            subg-f-A <-->|📬| subg-APIs-C[📧 API]
+
+            subg-d-A --> |📬| subg-APIs-C[📧 API]
+            subg-f-A <-->|📨| subg-APIs-C[📧 API]
         end
     end
 
