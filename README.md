@@ -19,6 +19,8 @@ AI Subject Monitoring Project with mermaid
 || [I/O API: OpenAI API](#io-api-openai-api) |
 </details>
 
+# Global workflow
+
 ## Legend
 
 ```mermaid
@@ -107,7 +109,7 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
-## Global workflow
+## Flowchart
 
 ```mermaid
 graph LR
@@ -218,15 +220,17 @@ graph LR
     classDef tfile fill:#888, color:#333
 ```
 
+# Developments
+
 ## Linux machine
 
 ### Linux crontab
 
-
+[...]
 
 ### Shell scripts
 
-
+[...]
 
 ## Podcast Watchdog
 
@@ -334,67 +338,6 @@ graph LR
     linkStyle 9 stroke:#88A, stroke-width:0px;
     linkStyle 16 stroke:#88A, stroke-width:0px;
     linkStyle 21 stroke:#88A, stroke-width:0px;
-
-
-    classDef python fill:#FFDC52, color:#000;
-    classDef fastapi fill:#059286, color:#45D2C6
-    classDef openai fill:#FFF, color:#000;
-    classDef mysql fill:#00618B, color:#40A1CB
-    classDef sqlite fill:#4FC0FC, color:#0F80CC
-    classDef file fill:#BBB, color:#333
-    classDef tfile fill:#888, color:#333
-```
-
-### I/O API: transcription-API
-
-```mermaid
-sequenceDiagram
-    participant podcast-watchdog
-    participant transcription-API
-    podcast-watchdog->>transcription-API: API Request [POST]: file_path: str
-    transcription-API-->>podcast-watchdog: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
-```
-
-### I/O API: OpenAI API
-
-```mermaid
-sequenceDiagram
-    participant podcast-watchdog
-    participant OpenAI
-    podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
-    OpenAI-->>podcast-watchdog: message
-```
-
-## Transcribe API
-
-### Flowchart
-
-```mermaid
-graph TB
-    goto-project
-    click goto-project "https://github.com/ChristianPRO1982/transcription-API"
-    style goto-project fill:#000, color:#00F
-
-    subgraph app
-        style app fill:#555, color:#FFF
-        A((call))
-    end
-
-    subgraph machine[Linux machine]
-        style machine fill:#777, color:#FFF
-
-        subgraph ta[Transcribe API]
-            style ta fill:#88A, color:#FFF
-
-            A ==>|file_path: str| EP-TRANSCRIBE["ENDPOINT Transcribe [POST]"]:::python
-            EP-TRANSCRIBE -.->|"json: file_name / file_name / date_time / processing_time / transcription_text / error"| A
-
-            EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
-            UTILS -->|"(text, error)"| EP-TRANSCRIBE
-
-            UTILS <--> WHISPER["model = whisper.load_model('base')"]
-        end
-    end
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -625,4 +568,69 @@ graph LR
     classDef sqlite fill:#4FC0FC, color:#0F80CC
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
+```
+
+# APIs
+
+## Transcribe API
+
+### Flowchart
+
+```mermaid
+graph TB
+    goto-project
+    click goto-project "https://github.com/ChristianPRO1982/transcription-API"
+    style goto-project fill:#000, color:#00F
+
+    subgraph app
+        style app fill:#555, color:#FFF
+        A((call))
+    end
+
+    subgraph machine[Linux machine]
+        style machine fill:#777, color:#FFF
+
+        subgraph ta[Transcribe API]
+            style ta fill:#88A, color:#FFF
+
+            A ==>|file_path: str| EP-TRANSCRIBE["ENDPOINT Transcribe [POST]"]:::python
+            EP-TRANSCRIBE -.->|"json: file_name / file_name / date_time / processing_time / transcription_text / error"| A
+
+            EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
+            UTILS -->|"(text, error)"| EP-TRANSCRIBE
+
+            UTILS <--> WHISPER["model = whisper.load_model('base')"]
+        end
+    end
+
+
+    classDef python fill:#FFDC52, color:#000;
+    classDef fastapi fill:#059286, color:#45D2C6
+    classDef openai fill:#FFF, color:#000;
+    classDef mysql fill:#00618B, color:#40A1CB
+    classDef sqlite fill:#4FC0FC, color:#0F80CC
+    classDef file fill:#BBB, color:#333
+    classDef tfile fill:#888, color:#333
+```
+
+### I/O API: transcription-API
+
+```mermaid
+sequenceDiagram
+    participant podcast-watchdog
+    participant transcription-API
+    podcast-watchdog->>transcription-API: API Request [POST]: file_path: str
+    transcription-API-->>podcast-watchdog: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
+```
+
+## OpenAI API
+
+### I/O API: OpenAI API
+
+```mermaid
+sequenceDiagram
+    participant podcast-watchdog
+    participant OpenAI
+    podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
+    OpenAI-->>podcast-watchdog: message
 ```
