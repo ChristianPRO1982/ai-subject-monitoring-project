@@ -152,8 +152,8 @@ graph LR
 
             B -->|main.py| subg-b-A[python POO]:::python
 
-            subg-b-A <-.-> dbpodcast[(podcast.db)]:::sqlite
-            subg-b-A <--> transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
+            subg-b-A <-.->|🎯🌱🚀| dbpodcast[(podcast.db)]:::sqlite
+            subg-b-A <-->|✚| transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
             transcribe:::file
 
             subg-b-A <-->|role + prompt > txt| subg-APIs-B
@@ -332,8 +332,8 @@ graph LR
     pw02 --> pw03
     pw03 <--> t-api
     t-api -->|👁️‍🗨️| pcmp3
-    pw03 -->|✚| pctxt
     pw03 -->|🗑️| pcmp3
+    pw03 -->|✚| pctxt
     pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
     pw03 --> pw04
@@ -646,10 +646,10 @@ graph TB
 
 ```mermaid
 sequenceDiagram
-    participant podcast-watchdog
+    participant Calling APP
     participant transcription-API
-    podcast-watchdog->>transcription-API: API Request [POST]: file_path: str
-    transcription-API-->>podcast-watchdog: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
+    Calling APP->>transcription-API: API Request [POST]: file_path: str
+    transcription-API-->>Calling APP: JSON: {"file_name", "date_time", "processing_time", "transcription_text": text, "error"}
 ```
 
 [Table of content](#ai-subject-monitoring-project)
@@ -660,10 +660,10 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant podcast-watchdog
+    participant Calling APP
     participant OpenAI
-    podcast-watchdog->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
-    OpenAI-->>podcast-watchdog: message
+    Calling APP->>OpenAI: Request API: role / prompt [= pre-prompt + transcribe]
+    OpenAI-->>Calling APP: message
 ```
 
 [Table of content](#ai-subject-monitoring-project)
