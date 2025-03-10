@@ -57,8 +57,8 @@ graph LR
             
             L1[python scripts]:::python
             L2[Linux shell]:::shell
-            L3[FastAPI]:::fastapi
-            L4[OpenAI]:::openai
+            L3[/FastAPI/]:::fastapi
+            L4[/OpenAI/]:::openai
             L5[Other]
         end
 
@@ -124,7 +124,7 @@ graph LR
         
         subgraph OpenAI
             style OpenAI fill:#555, color:#FFF
-            subg-APIs-B[API]:::openai
+            subg-APIs-B[/API/]:::openai
         end
     end
 
@@ -176,7 +176,7 @@ graph LR
 
         subgraph transcription-API
             style transcription-API fill:#88A, color:#FFF
-            subg-b-A <-->|EndPoint:transcribe| subg-APIs-A[main.py: transcribe]:::fastapi
+            subg-b-A <-->|EndPoint:transcribe| subg-APIs-A[/main.py: transcribe/]:::fastapi
         end
 
         subgraph subg-g[Monitoring AI tools]
@@ -188,7 +188,7 @@ graph LR
 
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
-            info1[/🚧 under construction 🚧/]
+            info1[/🚧 under construction 🚧\]
             subg-b-A -.->|🌱| subg-mysql-A[(ai-subject-monitoring)]:::mysql
             subg-c-A -.->|🌱| subg-mysql-A
             subg-e-A -.->|🌱| subg-mysql-A
@@ -210,8 +210,8 @@ graph LR
         subgraph Outlook
             style Outlook fill:#555, color:#FFF
 
-            subg-d-A --> |📬🔀📨🧨| subg-APIs-C[📧 API]
-            subg-f-A ==>|📨| subg-APIs-C[📧 API]
+            subg-d-A --> |📬🔀📨🧨| subg-APIs-C[/📧 API/]
+            subg-f-A ==>|📨| subg-APIs-C
         end
     end
 
@@ -259,7 +259,7 @@ graph LR
         
         subgraph OpenAI
             style OpenAI fill:#555, color:#FFF
-            o-api[API]:::openai
+            o-api[/API/]:::openai
         end
     end
     
@@ -310,7 +310,7 @@ graph LR
         
         subgraph transcription-API
             style transcription-API fill:#555, color:#FFF
-            t-api[main.py: transcribe]:::fastapi
+            t-api[/main.py: transcribe/]:::fastapi
         end
         
         subgraph mysql[Global DB]
@@ -407,7 +407,7 @@ graph LR
         
         subgraph Outlook
             style Outlook fill:#555, color:#FFF
-            out-api[📧 API]
+            out-api[/📧 API/]
         end
     end
 
@@ -620,7 +620,7 @@ graph TB
         subgraph ta[Transcribe API]
             style ta fill:#88A, color:#FFF
 
-            A ==>|file_path: str| EP-TRANSCRIBE["ENDPOINT Transcribe [POST]"]:::python
+            A ==>|file_path: str| EP-TRANSCRIBE[/"ENDPOINT Transcribe [POST]"/]:::python
             EP-TRANSCRIBE -.->|"json: file_name / file_name / date_time / processing_time / transcription_text / error"| A
 
             EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
