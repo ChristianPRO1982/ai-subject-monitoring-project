@@ -143,7 +143,7 @@ graph LR
             A --> C[Scrape-latest-posts-from-news-sites]:::shell
             A --> D[manage-newsletters]:::shell
             A --> E[ChrisAI-research]:::shell
-            A --> F[newsletter]:::shell
+            A ==> F[newsletter]:::shell
         end
 
 
@@ -152,8 +152,8 @@ graph LR
 
             B -->|main.py| subg-b-A[python POO]:::python
 
-            subg-b-A <-.->|🎯🌱🚀| dbpodcast[(podcast.db)]:::sqlite
-            subg-b-A <-->|✚| transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
+            subg-b-A -.->|🎯🌱🚀| dbpodcast[(podcast.db)]:::sqlite
+            subg-b-A -->|✚| transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
             transcribe:::file
 
             subg-b-A <-->|role + prompt > txt| subg-APIs-B
@@ -174,6 +174,11 @@ graph LR
             E -->|main.py| subg-e-A[🚧 under construction 🚧]:::python
         end
 
+        subgraph transcription-API
+            style transcription-API fill:#88A, color:#FFF
+            subg-b-A <-->|EndPoint:transcribe| subg-APIs-A[main.py: transcribe]:::fastapi
+        end
+
         subgraph subg-g[Monitoring AI tools]
             style subg-g fill:#88A, color:#FFF
 
@@ -181,25 +186,20 @@ graph LR
             subg-g-A -.->|🌱| subg-g-B[(ai_tools.db)]:::sqlite
         end
 
-        subgraph transcription-API
-            style transcription-API fill:#88A, color:#FFF
-            subg-b-A <-->|EndPoint:transcribe| subg-APIs-A[main.py: transcribe]:::fastapi
-        end
-
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
             info1[/🚧 under construction 🚧/]
             subg-b-A -.->|🌱| subg-mysql-A[(ai-subject-monitoring)]:::mysql
             subg-c-A -.->|🌱| subg-mysql-A
-            subg-d-A -.->|🌱| subg-mysql-A
             subg-e-A -.->|🌱| subg-mysql-A
+            subg-d-A -.->|🌱| subg-mysql-A
             subg-g-A -.->|🌱| subg-mysql-A
         end
 
         subgraph subg-f[Newsletter]
             style subg-f fill:#363, color:#FFF
             
-            F -->|main.py| subg-f-A[🚧 under construction 🚧]:::python
+            F ==>|main.py| subg-f-A[🚧 under construction 🚧]:::python
             subg-f-A -.->|🎯🚀| subg-mysql-A
         end
     end
@@ -210,8 +210,8 @@ graph LR
         subgraph Outlook
             style Outlook fill:#555, color:#FFF
 
-            subg-d-A --> |📬| subg-APIs-C[📧 API]
-            subg-f-A <-->|📨| subg-APIs-C[📧 API]
+            subg-d-A --> |📬🔀📨🧨| subg-APIs-C[📧 API]
+            subg-f-A ==>|📨| subg-APIs-C[📧 API]
         end
     end
 
