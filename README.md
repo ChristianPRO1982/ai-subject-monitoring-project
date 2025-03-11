@@ -150,8 +150,8 @@ graph LR
         subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
 
-            B -->|main.py| subg-b-A[python POO]:::python
-
+            subg-b-A@{ shape: subproc, label: "python POO" }
+            B -->|main.py| subg-b-A:::python
             subg-b-A -.->|🎯🌱🚀| dbpodcast[(podcast.db)]:::sqlite
             subg-b-A -->|✚| transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
             transcribe:::file
@@ -161,17 +161,19 @@ graph LR
 
         subgraph subg-c[Scraping news sites]
             style subg-c fill:#363, color:#FFF
-            C -->|main.py| subg-c-A[🚧 under construction 🚧]:::python
+            C -->|main.py| subg-c-A[/🚧 under construction 🚧\]:::python
         end
 
         subgraph subg-d[Manage newsletters]
             style subg-d fill:#88A, color:#FFF
-            D -->|main.py| subg-d-A[python POO]:::python
+
+            subg-d-A@{ shape: subproc, label: "python POO" }
+            D -->|main.py| subg-d-A:::python
         end
 
         subgraph subg-e[ChrisAI-research]
             style subg-e fill:#363, color:#FFF
-            E -->|main.py| subg-e-A[🚧 under construction 🚧]:::python
+            E -->|main.py| subg-e-A[/🚧 under construction 🚧\]:::python
         end
 
         subgraph transcription-API
@@ -182,7 +184,8 @@ graph LR
         subgraph subg-g[Monitoring AI tools]
             style subg-g fill:#88A, color:#FFF
 
-            G((🫳⌨️ manual launch)) --> subg-g-A[python]:::python
+            subg-g-A@{ shape: subproc, label: "python POO" }
+            G((🫳⌨️ manual launch)) --> subg-g-A:::python
             subg-g-A -.->|🌱| subg-g-B[(ai_tools.db)]:::sqlite
         end
 
@@ -199,7 +202,7 @@ graph LR
         subgraph subg-f[Newsletter]
             style subg-f fill:#363, color:#FFF
             
-            F ==>|main.py| subg-f-A[🚧 under construction 🚧]:::python
+            F ==>|main.py| subg-f-A[/🚧 under construction 🚧\]:::python
             subg-f-A -.->|🎯🚀| subg-mysql-A
         end
     end
@@ -275,16 +278,11 @@ graph LR
             style pw fill:#88A, color:#FFF
 
             pw00[main.py]:::python
-            pw01@{ shape: subproc, label: "01: parse feeds RSS - utils_parse_rss.py ParseRSS" }
-            pw01:::python
-            pw02@{ shape: subproc, label: "02: download mp3 - utils_podcast.py Podcasts.download_podcasts" }
-            pw02:::python
-            pw03@{ shape: subproc, label: "03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts" }
-            pw03:::python
-            pw04@{ shape: subproc, label: "04: summarize - utils_podcast.py Podcasts.summarize_podcasts" }
-            pw04:::python
-            pw05@{ shape: subproc, label: "05: Global DB" }
-            pw05:::python
+            pw01[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
+            pw02[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
+            pw03[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
+            pw04[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
+            pw05[05: Global DB]:::python
 
             subgraph SQLite
                 style SQLite fill:#88A, color:#FFF
@@ -431,16 +429,11 @@ graph LR
 
             mn00[main.py]:::python
 
-            mn01@{ shape: subproc, label: "01: search new NL - utils_email.py OutlookEmails.new" }
-            mn01:::python
-            mn02@{ shape: subproc, label: "02: concact newsletters - utils_email.py AllEmails.concact" }
-            mn02:::python
-            mn03@{ shape: subproc, label: "03: send newsletter - utils_email.py AllEmails.send" }
-            mn03:::python
-            mn04@{ shape: subproc, label: "04: move newsletters - utils_email.py OutlookEmails.move" }
-            mn04:::python
-            mn05@{ shape: subproc, label: "05: delete old newsletters - utils_email.py OutlookEmails.delete" }
-            mn05:::python
+            mn01[01: search new NL - utils_email.py OutlookEmails.new]:::python
+            mn02[02: concact newsletters - utils_email.py AllEmails.concact]:::python
+            mn03[03: send newsletter - utils_email.py AllEmails.send]:::python
+            mn04[04: move newsletters - utils_email.py OutlookEmails.move]:::python
+            mn05[05: delete old newsletters - utils_email.py OutlookEmails.delete]:::python
         end
         
         subgraph mysql[Global DB]
