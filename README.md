@@ -48,7 +48,7 @@ graph LR
 
             subgraph dev[🚧 under construction 🚧]
                 style dev fill:#363, color:#FFF
-                example3[example]
+                example3[/🚧 example 🚧\]
             end
         end
 
