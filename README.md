@@ -132,12 +132,12 @@ graph LR
         style machine fill:#777, color:#FFF
 
         subgraph crontab[Crontab]
-            style crontab fill:#88A, color:#FFF
+            style crontab fill:#363, color:#FFF
             A((⏱️ Crontab: weekly))
         end
 
         subgraph scripts[Shell scripts]
-            style scripts fill:#88A, color:#FFF
+            style scripts fill:#363, color:#FFF
             
             A --> B[Podcast Watchdog]:::shell
             A --> C[Scrape-latest-posts-from-news-sites]:::shell
