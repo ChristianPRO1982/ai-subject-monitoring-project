@@ -9,7 +9,7 @@ AI Subject Monitoring Project with mermaid
   <summary><strong>📌 Table of Contents</strong></summary>
 
   * [Legend](#legend)
-  * [Global workflow](#global-workflow)
+  * [Global workflow - Flowchart](#flowchart)
 
 | Developement            | Link 1                                  | Link 2                                                  | Link 3                                    |
 |-------------------------|-----------------------------------------|---------------------------------------------------------|-------------------------------------------|
