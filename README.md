@@ -131,9 +131,9 @@ graph LR
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
 
-        subgraph crontab[Crontab]
+        subgraph crontab[Linux Crontab]
             style crontab fill:#363, color:#FFF
-            A((⏱️ Crontab: weekly))
+            A(⏱️ Crontab: weekly)
         end
 
         subgraph scripts[Shell scripts]
@@ -150,8 +150,7 @@ graph LR
         subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
 
-            subg-b-A@{ shape: subproc, label: "python POO" }
-            B -->|main.py| subg-b-A:::python
+            B -->|main.py| subg-b-A[python POO]:::python
             subg-b-A -.->|🎯🌱🚀| dbpodcast[(podcast.db)]:::sqlite
             subg-b-A -->|✚| transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
             transcribe:::file
@@ -167,8 +166,7 @@ graph LR
         subgraph subg-d[Manage newsletters]
             style subg-d fill:#88A, color:#FFF
 
-            subg-d-A@{ shape: subproc, label: "python POO" }
-            D -->|main.py| subg-d-A:::python
+            D -->|main.py| subg-d-A[python POO]:::python
         end
 
         subgraph subg-e[ChrisAI-research]
@@ -184,8 +182,7 @@ graph LR
         subgraph subg-g[Monitoring AI tools]
             style subg-g fill:#88A, color:#FFF
 
-            subg-g-A@{ shape: subproc, label: "python POO" }
-            G((🫳⌨️ manual launch)) --> subg-g-A:::python
+            G(🫳⌨️ manual launch) --> subg-g-A[python POO]:::python
             subg-g-A -.->|🌱| subg-g-B[(ai_tools.db)]:::sqlite
         end
 
@@ -271,18 +268,18 @@ graph LR
         
         subgraph linux[Linux]
             style linux fill:#555, color:#FFF
-            ct((⏱️ Crontab))
+            ct(⏱️ Crontab)
         end
 
         subgraph pw[Podcast Watchdog]
             style pw fill:#88A, color:#FFF
 
             pw00[main.py]:::python
-            pw01[01: parse feeds RSS - utils_parse_rss.py ParseRSS]:::python
-            pw02[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]:::python
-            pw03[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]:::python
-            pw04[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]:::python
-            pw05[05: Global DB]:::python
+            pw01[[01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
+            pw02[[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
+            pw03[[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
+            pw04[[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
+            pw05[[05: Global DB]]:::python
 
             subgraph SQLite
                 style SQLite fill:#88A, color:#FFF
@@ -414,7 +411,7 @@ graph LR
         
         subgraph linux[Linux]
             style linux fill:#555, color:#FFF
-            ct((⏱️ Crontab))
+            ct(⏱️ Crontab)
         end
 
         subgraph mn[Manage newsletters]
@@ -429,11 +426,11 @@ graph LR
 
             mn00[main.py]:::python
 
-            mn01[01: search new NL - utils_email.py OutlookEmails.new]:::python
-            mn02[02: concact newsletters - utils_email.py AllEmails.concact]:::python
-            mn03[03: send newsletter - utils_email.py AllEmails.send]:::python
-            mn04[04: move newsletters - utils_email.py OutlookEmails.move]:::python
-            mn05[05: delete old newsletters - utils_email.py OutlookEmails.delete]:::python
+            mn01[[01: search new NL - utils_email.py OutlookEmails.new]]:::python
+            mn02[[02: concact newsletters - utils_email.py AllEmails.concact]]:::python
+            mn03[[03: send newsletter - utils_email.py AllEmails.send]]:::python
+            mn04[[04: move newsletters - utils_email.py OutlookEmails.move]]:::python
+            mn05[[05: delete old newsletters - utils_email.py OutlookEmails.delete]]:::python
         end
         
         subgraph mysql[Global DB]
@@ -619,7 +616,7 @@ graph TB
             EP-TRANSCRIBE -->|"file_path: str"| UTILS["utils.py transcription_text()"]:::python
             UTILS -->|"(text, error)"| EP-TRANSCRIBE
 
-            UTILS <--> WHISPER["model = whisper.load_model('base')"]
+            UTILS <--> WHISPER[["model = whisper.load_model('base')"]]
         end
     end
 
