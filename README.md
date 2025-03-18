@@ -320,32 +320,26 @@ graph LR
     pw01 -.->|🌱| pcdb
     pw01 -->|👁️‍🗨️| ai-json
     pw00 ==> pw02
-    pw01 --> pw02
+    pw01 ~~~ pw02
     pw02 -.->|🎯🚀| pcdb
     pw02 -->|✚| pcmp3
     pw00 ==> pw03
-    pw02 --> pw03
+    pw02 ~~~ pw03
     pw03 <--> t-api
     t-api -->|👁️‍🗨️| pcmp3
     pw03 -->|🗑️| pcmp3
     pw03 -->|✚| pctxt
     pw03 -.->|🎯🚀| pcdb
     pw00 ==> pw04
-    pw03 --> pw04
+    pw03 ~~~ pw04
     pw04 -->|👁️‍🗨️| pctxt
     pw04 -->|👁️‍🗨️| prompt-json
     pw04 -.->|🎯🚀| pcdb
     pw00 ==> pw05
-    pw04 --> pw05
+    pw04 ~~~ pw05
     pw04 <--> o-api
     pw05 -.->|🎯🚀| pcdb
     pw05 -...->|🌱| mon-mysql
-
-
-    linkStyle 5 stroke:#88A, stroke-width:0px;
-    linkStyle 9 stroke:#88A, stroke-width:0px;
-    linkStyle 16 stroke:#88A, stroke-width:0px;
-    linkStyle 21 stroke:#88A, stroke-width:0px;
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -444,24 +438,18 @@ graph LR
     mn00 ==> mn01
     mn01 <-->|📬| out-api
     mn00 ==> mn02
-    mn01 --> mn02
+    mn01 ~~~ mn02
     mn02 -.->|🌱| mon-mysql
     mn02 --> NLtxt
     mn00 ==> mn03
-    mn02 --> mn03
+    mn02 ~~~ mn03
     mn03 -->|📨| out-api
     mn00 ==> mn04
-    mn03 --> mn04
+    mn03 ~~~ mn04
     mn04 -->|🔀| out-api
     mn00 ==> mn05
-    mn04 --> mn05
+    mn04 ~~~ mn05
     mn05 -->|🧨| out-api
-
-
-    linkStyle 4 stroke:#88A, stroke-width:0px;
-    linkStyle 8 stroke:#88A, stroke-width:0px;
-    linkStyle 11 stroke:#88A, stroke-width:0px;
-    linkStyle 14 stroke:#88A, stroke-width:0px;
 
 
     classDef python fill:#FFDC52, color:#000;
