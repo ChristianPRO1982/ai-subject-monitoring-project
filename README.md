@@ -381,16 +381,22 @@ graph TB
             ns03[#03 save in txt file]:::python
             ns04[#04 Global DB]:::python
         end
+        
+        subgraph mysql[Global DB]
+            style mysql fill:#363, color:#FFF
+            mon-mysql[(🚧ai-subject-monitoring🚧)]:::mysql
+        end
     end
 
-    ct --> ns00
-    ns00 --> ns01
-    ns00 --> ns02
+    ct ==> ns00
+    ns00 ==> ns01
+    ns00 ==> ns02
     ns01 ~~~ ns02
-    ns00 --> ns03
+    ns00 ==> ns03
     ns02 ~~~ ns03
-    ns00 --> ns04
+    ns00 ==> ns04
     ns03 ~~~ ns04
+    ns04 -.-> mon-mysql
 
 
     classDef python fill:#FFDC52, color:#000;
