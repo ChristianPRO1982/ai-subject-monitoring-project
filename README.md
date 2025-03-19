@@ -385,7 +385,7 @@ graph TB
                 style in-f fill:#88A, color:#FFF
                 scraping-json@{ shape: docs, label: "{} scraping.json" }
                 scraping-json:::file
-                article-txt@{ shape: docs, label: "📄 ai_rss_prompts.json" }
+                article-txt@{ shape: docs, label: "📄 article.txt" }
                 article-txt:::file
             end
         end
