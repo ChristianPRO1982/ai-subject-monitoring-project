@@ -377,9 +377,17 @@ graph TB
             ns00[main.py]:::python
             ns01@{ shape: processes, label: "#01 scraping" }
             ns01:::python
-            ns02[#02 transform HTML to markdown and clean data]:::python
-            ns03[#03 save in txt file]:::python
-            ns04[#04 Global DB]:::python
+            ns02[[#02 transform HTML to markdown and clean data]]:::python
+            ns03[[#03 save in txt file]]:::python
+            ns04[[#04 Global DB]]:::python
+
+            subgraph in-f[output folder]
+                style in-f fill:#88A, color:#FFF
+                scraping-json@{ shape: docs, label: "{} scraping.json" }
+                scraping-json:::file
+                article-txt@{ shape: docs, label: "📄 ai_rss_prompts.json" }
+                article-txt:::file
+            end
         end
         
         subgraph mysql[Global DB]
@@ -390,8 +398,11 @@ graph TB
 
     ct ==> ns00
     ns00 ==> ns01
+    ns01 -->|🔄| scraping-json
     ns00 ==> ns02
     ns01 ~~~ ns02
+    ns02 -->|👁️‍🗨️| scraping-json
+    ns02 -->|✚| article-txt
     ns00 ==> ns03
     ns02 ~~~ ns03
     ns00 ==> ns04
