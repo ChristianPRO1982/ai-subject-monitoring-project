@@ -353,14 +353,14 @@ graph LR
 
 [Table of content](#ai-subject-monitoring-project)
 
-## Scraping news sites
+## Scraping latest posts from news sites
 
 ### NS-Flowchart
 
 ```mermaid
 graph TB
     goto-project
-    click goto-project "https://github.com/ChristianPRO1982/scraping-news-sites"
+    click goto-project "https://github.com/ChristianPRO1982/scraping-latest-posts-from-news-sites"
     style goto-project fill:#000, color:#00F
 
     subgraph machine[Linux machine]
