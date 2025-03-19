@@ -377,8 +377,9 @@ graph TB
             ns00[main.py]:::python
             ns01@{ shape: processes, label: "#01 scraping" }
             ns01:::python
-            ns02:::python
-            ns03:::python
+            ns02[#02 transform HTML to markdown and clean data]:::python
+            ns03[#03 save in txt file]:::python
+            ns04[#04 Global DB]:::python
         end
     end
 
@@ -388,6 +389,8 @@ graph TB
     ns01 ~~~ ns02
     ns00 --> ns03
     ns02 ~~~ ns03
+    ns00 --> ns04
+    ns03 ~~~ ns04
 
 
     classDef python fill:#FFDC52, color:#000;
