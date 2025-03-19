@@ -275,11 +275,11 @@ graph LR
             style pw fill:#88A, color:#FFF
 
             pw00[main.py]:::python
-            pw01[[01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
-            pw02[[02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
-            pw03[[03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
-            pw04[[04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
-            pw05[[05: Global DB]]:::python
+            pw01[[#01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
+            pw02[[#02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
+            pw03[[#03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
+            pw04[[#04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
+            pw05[[#05: Global DB]]:::python
 
             subgraph SQLite
                 style SQLite fill:#88A, color:#FFF
@@ -358,7 +358,7 @@ graph LR
 ### NS-Flowchart
 
 ```mermaid
-graph LR
+graph TB
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/scraping-news-sites"
     style goto-project fill:#000, color:#00F
@@ -366,8 +366,28 @@ graph LR
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
         
-        init
+        subgraph linux[Linux]
+            style linux fill:#555, color:#FFF
+            ct(⏱️ Crontab)
+        end
+
+        subgraph mn[Manage newsletters]
+            style mn fill:#88A, color:#FFF
+
+            ns00[main.py]:::python
+            ns01@{ shape: processes, label: "#01 scraping" }
+            ns01:::python
+            ns02:::python
+            ns03:::python
+        end
     end
+
+    ct --> ns00
+    ns00 --> ns01
+    ns00 --> ns02
+    ns01 ~~~ ns02
+    ns00 --> ns03
+    ns02 ~~~ ns03
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -420,11 +440,11 @@ graph LR
 
             mn00[main.py]:::python
 
-            mn01[[01: search new NL - utils_email.py OutlookEmails.new]]:::python
-            mn02[[02: concact newsletters - utils_email.py AllEmails.concact]]:::python
-            mn03[[03: send newsletter - utils_email.py AllEmails.send]]:::python
-            mn04[[04: move newsletters - utils_email.py OutlookEmails.move]]:::python
-            mn05[[05: delete old newsletters - utils_email.py OutlookEmails.delete]]:::python
+            mn01[[#01: search new NL - utils_email.py OutlookEmails.new]]:::python
+            mn02[[#02: concact newsletters - utils_email.py AllEmails.concact]]:::python
+            mn03[[#03: send newsletter - utils_email.py AllEmails.send]]:::python
+            mn04[[#04: move newsletters - utils_email.py OutlookEmails.move]]:::python
+            mn05[[#05: delete old newsletters - utils_email.py OutlookEmails.delete]]:::python
         end
         
         subgraph mysql[Global DB]
