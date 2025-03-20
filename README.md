@@ -254,11 +254,19 @@ flowchart TB
     click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
     style goto-project fill:#000, color:#0FF
 
-    subgraph BDD
+    subgraph inDB[internal DB]
+        style inDB fill:#88A, color:#FFF
+
         sqlite[(podcast.db)]:::sqlite
     end
+
+    subgraph exDB[External DB]
+        style exDB fill:#88A, color:#FFF
+
+        gDB[(Global DB)]:::mysql
+    end
     
-    subgraph output[Outpu files]
+    subgraph output[Output files]
         style output fill:#88A, color:#FFF
 
         p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
@@ -296,19 +304,22 @@ flowchart TB
         ai-json ~~~ prompt-json
     end
 
+    ct(⏱️ Crontab) ==> pw00
     pw01 -->|👁️‍🗨️| ai-json
     pw04 -->|👁️‍🗨️| prompt-json
     pw03 -->|✚| p-txt
     pw03 -->|🗑️| p-mp3
     pw02 -->|✚| p-mp3
 
+    pw05 -.->|🎯🚀| sqlite
+    pw04 -.->|🎯🚀| sqlite
     pw01 -.->|🌱| sqlite
     pw02 -.->|🎯🚀| sqlite
-    pw04 -.->|🎯🚀| sqlite
-    pw05 -.->|🎯🚀| sqlite
     pw03 -.->|🎯🚀| sqlite
 
-    pw03 <-.-> t-api
+    pw05 -.->|🌱| gDB
+
+    pw03 <--> t-api
     t-api ~~~ pw03
     t-api -->|👁️‍🗨️| p-mp3
 
@@ -336,51 +347,41 @@ graph TB
     click goto-project "https://github.com/ChristianPRO1982/scraping-latest-posts-from-news-sites"
     style goto-project fill:#000, color:#0FF
 
-    subgraph machine[Linux machine]
-        style machine fill:#777, color:#FFF
-        
-        subgraph linux[Linux]
-            style linux fill:#555, color:#FFF
-            ct(⏱️ Crontab)
-        end
+    subgraph exDB[External DB]
+        style exDB fill:#88A, color:#FFF
 
-        subgraph mn[Manage newsletters]
-            style mn fill:#88A, color:#FFF
-
-            ns00[main.py]:::python
-            ns01@{ shape: processes, label: "#01 scraping" }
-            ns01:::python
-            ns02[[#02 transform HTML to markdown and clean data]]:::python
-            ns03[[#03 save in txt file]]:::python
-            ns04[[#04 Global DB]]:::python
-
-            subgraph in-f[output folder]
-                style in-f fill:#88A, color:#FFF
-                scraping-json@{ shape: docs, label: "{} scraping.json" }
-                scraping-json:::file
-                article-txt@{ shape: docs, label: "📄 article.txt" }
-                article-txt:::file
-            end
-        end
-        
-        subgraph mysql[Global DB]
-            style mysql fill:#363, color:#FFF
-            mon-mysql[(🚧ai-subject-monitoring🚧)]:::mysql
-        end
+        gDB[(Global DB)]:::mysql
     end
 
-    ct ==> ns00
-    ns00 ==> ns01
-    ns01 -->|🔄| scraping-json
-    ns00 ==> ns02
-    ns01 ~~~ ns02
-    ns02 -->|👁️‍🗨️| scraping-json
-    ns02 -->|✚| article-txt
-    ns00 ==> ns03
-    ns02 ~~~ ns03
-    ns00 ==> ns04
-    ns03 ~~~ ns04
-    ns04 -.-> mon-mysql
+    subgraph output[Output files]
+        style output fill:#88A, color:#FFF
+
+        scrap-json@{ shape: docs, label: "🎧 XX_podcast.mp3" }
+        scrap-json:::tfile
+        article-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
+        article-txt:::file
+
+        scrap-json ~~~ article-txt
+    end
+
+    subgraph machine[Linux machine]
+        style machine fill:#88A, color:#FFF
+        
+        ns00[main.py]:::python
+        ns00 ==> ns01[[#01: scraping]]:::python
+        ns01 ==> ns02[[#02: transform HTML to markdown and clean data]]:::python
+        ns02 ==> ns03[[#03: save in txt file]]:::python
+        ns03 ==> ns04[[#04: Global DB]]:::python
+    end
+
+    ct(⏱️ Crontab) ==> ns00
+    ns01 -->|🔄| scrap-json
+    ns02 -->|👁️‍🗨️| scrap-json
+    ns03 -->|✚| article-txt
+
+    ns04 -.->|🌱| gDB
+
+    ns04 ==> stop([END])
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -399,70 +400,49 @@ graph TB
 ### MN-Flowchart
 
 ```mermaid
-graph LR
+graph TB
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/manage-newsletters"
     style goto-project fill:#000, color:#0FF
 
-    subgraph APIs[external APIs]
-        style APIs fill:#777, color:#FFF
-        
-        subgraph Outlook
-            style Outlook fill:#555, color:#FFF
-            out-api[/📧 API/]
-        end
+    subgraph Outlook
+        style Outlook fill:#555, color:#FFF
+        out-api[/📧 API/]
+    end
+
+    subgraph exDB[External DB]
+        style exDB fill:#88A, color:#FFF
+
+        gDB[(Global DB)]:::mysql
     end
 
     subgraph machine[Linux machine]
-        style machine fill:#777, color:#FFF
+        style machine fill:#88A, color:#FFF
         
-        subgraph linux[Linux]
-            style linux fill:#555, color:#FFF
-            ct(⏱️ Crontab)
-        end
-
-        subgraph mn[Manage newsletters]
-            style mn fill:#88A, color:#FFF
-
-            subgraph out-f[output folder]
-                style out-f fill:#88A, color:#FFF
-                
-                NLtxt@{ shape: doc, label: "📄 NL_YYYY-MM-DD.txt" }
-                NLtxt:::file
-            end
-
-            mn00[main.py]:::python
-
-            mn01[[#01: search new NL - utils_email.py OutlookEmails.new]]:::python
-            mn02[[#02: concact newsletters - utils_email.py AllEmails.concact]]:::python
-            mn03[[#03: send newsletter - utils_email.py AllEmails.send]]:::python
-            mn04[[#04: move newsletters - utils_email.py OutlookEmails.move]]:::python
-            mn05[[#05: delete old newsletters - utils_email.py OutlookEmails.delete]]:::python
-        end
-        
-        subgraph mysql[Global DB]
-            style mysql fill:#363, color:#FFF
-            mon-mysql[(🚧ai-subject-monitoring🚧)]:::mysql
-        end
+        mn00[main.py]:::python
+        mn00 ==> mn01[[#01: search new NL - utils_email.py OutlookEmails.new]]:::python
+        mn01 ==> mn02[[#02: concact newsletters - utils_email.py AllEmails.concact]]:::python
+        mn02 ==> mn03[[#03: send newsletter - utils_email.py AllEmails.send]]:::python
+        mn03 ==> mn04[[#04: move newsletters - utils_email.py OutlookEmails.move]]:::python
+        mn04 ==> mn05[[#05: delete old newsletters - utils_email.py OutlookEmails.delete]]:::python
     end
 
+    subgraph output[Output files]
+        style output fill:#88A, color:#FFF
 
-    ct ==> mn00
-    mn00 ==> mn01
-    mn01 <-->|📬| out-api
-    mn00 ==> mn02
-    mn01 ~~~ mn02
-    mn02 -.->|🌱| mon-mysql
-    mn02 --> NLtxt
-    mn00 ==> mn03
-    mn02 ~~~ mn03
+        nl-txt@{ shape: docs, label: "📄 NL_YYYY-MM-DD.txt" }
+        nl-txt:::file
+    end
+
+    ct(⏱️ Crontab) ==> mn00
+    mn01 -->|📬| out-api
+    mn02 -->|✚| nl-txt
+    mn02 -.->|🌱| gDB
     mn03 -->|📨| out-api
-    mn00 ==> mn04
-    mn03 ~~~ mn04
     mn04 -->|🔀| out-api
-    mn00 ==> mn05
-    mn04 ~~~ mn05
     mn05 -->|🧨| out-api
+
+    mn05 ==> stop([END])
 
 
     classDef python fill:#FFDC52, color:#000;
