@@ -547,7 +547,7 @@ graph LR
 ```mermaid
 graph LR
     goto-project
-    click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
+    click goto-project "https://github.com/ChristianPRO1982/global-db"
     style goto-project fill:#000, color:#0FF
 
     subgraph machine[Linux machine]
