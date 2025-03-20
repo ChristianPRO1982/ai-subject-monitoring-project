@@ -356,9 +356,9 @@ graph TB
     subgraph output[Output files]
         style output fill:#88A, color:#FFF
 
-        scrap-json@{ shape: docs, label: "🎧 XX_podcast.mp3" }
+        scrap-json@{ shape: docs, label: "{} scraped_sites.mp3" }
         scrap-json:::tfile
-        article-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
+        article-txt@{ shape: docs, label: "📜 articles.md" }
         article-txt:::file
 
         scrap-json ~~~ article-txt
