@@ -261,7 +261,7 @@ flowchart TB
     end
 
     subgraph exDB[External DB]
-        style exDB fill:#88A, color:#FFF
+        style exDB fill:#555, color:#FFF
 
         gDB[(Global DB)]:::mysql
     end
@@ -348,7 +348,7 @@ graph TB
     style goto-project fill:#000, color:#0FF
 
     subgraph exDB[External DB]
-        style exDB fill:#88A, color:#FFF
+        style exDB fill:#555, color:#FFF
 
         gDB[(Global DB)]:::mysql
     end
@@ -411,7 +411,7 @@ graph TB
     end
 
     subgraph exDB[External DB]
-        style exDB fill:#88A, color:#FFF
+        style exDB fill:#555, color:#FFF
 
         gDB[(Global DB)]:::mysql
     end
