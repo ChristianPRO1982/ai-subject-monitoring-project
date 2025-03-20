@@ -249,102 +249,70 @@ graph LR
 ### PW-Flowchart
 
 ```mermaid
-graph LR
+flowchart TB
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
-    subgraph APIs[external APIs]
-        style APIs fill:#777, color:#FFF
-        
-        subgraph OpenAI
-            style OpenAI fill:#555, color:#FFF
-            o-api[/API/]:::openai
-        end
+    subgraph BDD
+        sqlite[(podcast.db)]:::sqlite
     end
     
+    subgraph output[Outpu files]
+        style output fill:#88A, color:#FFF
+
+        p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
+        p-mp3:::tfile
+        p-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
+        p-txt:::file
+
+        p-mp3 ~~~ p-txt
+    end
+        
+    subgraph transcription-API
+        style transcription-API fill:#555, color:#FFF
+        
+        t-api[/main.py: transcribe/]:::fastapi
+    end
+
     subgraph machine[Linux machine]
-        style machine fill:#777, color:#FFF
+        style machine fill:#88A, color:#FFF
         
-        subgraph linux[Linux]
-            style linux fill:#555, color:#FFF
-            ct(⏱️ Crontab)
-        end
-
-        subgraph pw[Podcast Watchdog]
-            style pw fill:#88A, color:#FFF
-
-            subgraph python
-                style python fill:#88A, color:#FFF
-
-                pw00[main.py]:::python
-                pw01[[#01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
-                pw02[[#02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
-                pw03[[#03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
-                pw04[[#04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
-                pw05[[#05: Global DB]]:::python
-            end
-
-            subgraph SQLite
-                style SQLite fill:#88A, color:#FFF
-                pcdb[(podcast.db)]:::sqlite
-            end
-            
-            subgraph in-f[input folder]
-                style in-f fill:#88A, color:#FFF
-
-                ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
-                ai-json:::file
-                prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
-                prompt-json:::file
-            end
-
-            subgraph out-f[output folder]
-                style out-f fill:#88A, color:#FFF
-                pcmp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
-                pcmp3:::tfile
-                pctxt@{ shape: docs, label: "📄 XX_podcast.txt" }
-                pctxt:::file
-            end
-        end
-        
-        subgraph transcription-API
-            style transcription-API fill:#555, color:#FFF
-            t-api[/main.py: transcribe/]:::fastapi
-        end
-        
-        subgraph mysql[Global DB]
-            style mysql fill:#363, color:#FFF
-            mon-mysql[(🚧ai-subject-monitoring🚧)]:::mysql
-        end
+        pw00[main.py]:::python
+        pw00 ==> pw01[[#01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
+        pw01 ==> pw02[[#02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
+        pw02 ==> pw03[[#03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
+        pw03 ==> pw04[[#04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
+        pw04 ==> pw05[[#05: Global DB]]:::python
     end
 
+    subgraph input[Input files]
+        style input fill:#88A, color:#FFF
 
-    ct ==> pw00
-    pw00 ==> pw01
-    pw01 ==> pw02
-    pw02 ==> pw03
-    pw03 ==> pw04
-    pw04 ==> pw05
-    
-    pw01 -.->|🌱| pcdb
+        ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
+        ai-json:::file
+        prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
+        prompt-json:::file
+        ai-json ~~~ prompt-json
+    end
+
     pw01 -->|👁️‍🗨️| ai-json
-    pw02 -.->|🎯🚀| pcdb
-    pw02 -->|✚| pcmp3
-    
-    pw03 <--> t-api
-    t-api -->|👁️‍🗨️| pcmp3
-    pw03 -->|🗑️| pcmp3
-    pw03 -->|✚| pctxt
-    pw03 -.->|🎯🚀| pcdb
-    
-    pw04 -->|👁️‍🗨️| pctxt
     pw04 -->|👁️‍🗨️| prompt-json
-    pw04 -.->|🎯🚀| pcdb
-    
-    pw04 <--> o-api
-    pw05 -.->|🎯🚀| pcdb
-    pw05 -...->|🌱| mon-mysql
+    pw03 -->|✚| p-txt
+    pw03 -->|🗑️| p-mp3
+    pw02 -->|✚| p-mp3
+
+    pw01 -.->|🌱| sqlite
+    pw02 -.->|🎯🚀| sqlite
+    pw04 -.->|🎯🚀| sqlite
+    pw05 -.->|🎯🚀| sqlite
+    pw03 -.->|🎯🚀| sqlite
+
+    pw03 <-.-> t-api
+    t-api ~~~ pw03
+    t-api -->|👁️‍🗨️| p-mp3
+
+    pw05 ==> stop([END])
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -366,7 +334,7 @@ graph LR
 graph TB
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/scraping-latest-posts-from-news-sites"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
@@ -434,7 +402,7 @@ graph TB
 graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/manage-newsletters"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph APIs[external APIs]
         style APIs fill:#777, color:#FFF
@@ -516,7 +484,7 @@ graph LR
 graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/ChrisAI-research"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
@@ -544,7 +512,7 @@ graph LR
 graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/monitoring-ai-tools"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
@@ -572,7 +540,7 @@ graph LR
 graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
@@ -600,7 +568,7 @@ graph LR
 graph LR
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/watch-podcast-download"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
@@ -630,7 +598,7 @@ graph LR
 graph TB
     goto-project
     click goto-project "https://github.com/ChristianPRO1982/transcription-API"
-    style goto-project fill:#000, color:#00F
+    style goto-project fill:#000, color:#0FF
 
     subgraph app
         style app fill:#555, color:#FFF
@@ -691,85 +659,14 @@ sequenceDiagram
 
 [Table of content](#ai-subject-monitoring-project)
 
-```mermaid
-flowchart TB
-    goto-project
-    click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
-    style goto-project fill:#000, color:#0FF
 
-    subgraph BDD
-        sqlite[(podcast.db)]:::sqlite
-    end
-    
-    subgraph output
-        direction LR
-
-        style output fill:#777, color:#FFF
-
-        p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
-        p-mp3:::tfile
-        p-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
-        p-txt:::file
-    end
-        
-    subgraph transcription-API
-        style transcription-API fill:#555, color:#FFF
-        
-        t-api[/main.py: transcribe/]:::fastapi
-    end
-
-    subgraph machine[Linux machine]
-    direction BT
-        style machine fill:#88A, color:#FFF
-        
-        pw00[main.py]:::python
-        pw00 ==> pw01[[#01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
-        pw01 ==> pw02[[#02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
-        pw02 ==> pw03[[#03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
-        pw03 ==> pw04[[#04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
-        pw04 ==> pw05[[#05: Global DB]]:::python
-    end
-
-    subgraph input
-        style input fill:#777, color:#FFF
-
-        ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
-        ai-json:::file
-        prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
-        prompt-json:::file
-    end
-
-    pw01 -->|👁️‍🗨️| ai-json
-    pw02 -->|✚| p-mp3
-    pw03 -->|🗑️| p-mp3
-    pw03 -->|✚| p-txt
-    pw04 -->|👁️‍🗨️| prompt-json
-
-    pw01 -.->|🌱| sqlite
-    pw02 -.->|🎯🚀| sqlite
-    pw04 -.->|🎯🚀| sqlite
-    pw05 -.->|🎯🚀| sqlite
-    pw03 -.->|🎯🚀| sqlite
-
-    pw02 --> t-api
-    t-api --> p-mp3
-
-
-    classDef python fill:#FFDC52, color:#000;
-    classDef fastapi fill:#059286, color:#45D2C6
-    classDef openai fill:#FFF, color:#000;
-    classDef mysql fill:#00618B, color:#40A1CB
-    classDef sqlite fill:#4FC0FC, color:#0F80CC
-    classDef file fill:#BBB, color:#333
-    classDef tfile fill:#888, color:#333
-```
 
 ```mermaid
-graph TB
-    A[👁️‍🗨️✚🔄🗑️]
-    B[🎯🌱🚀⚰️]
+graph RL
 
     subgraph autre
+    A[👁️‍🗨️✚🔄🗑️]
+    B[🎯🌱🚀⚰️]
         style autre fill:#777, color:#FFF
         subgraph package[Developed package]
             style package fill:#88A, color:#FFF
