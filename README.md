@@ -119,15 +119,6 @@ graph LR
 
 ```mermaid
 graph LR
-    subgraph APIs1[external APIs]
-        style APIs1 fill:#777, color:#FFF
-        
-        subgraph OpenAI
-            style OpenAI fill:#555, color:#FFF
-            subg-APIs-B[/API/]:::openai
-        end
-    end
-
     subgraph machine[Linux machine]
         style machine fill:#777, color:#FFF
 
@@ -146,16 +137,12 @@ graph LR
             A ==> F[newsletter]:::shell
         end
 
-
         subgraph subg-b[Podcast Watchdog]
             style subg-b fill:#88A, color:#FFF
 
             B -->|main.py| subg-b-A[python POO]:::python
-            subg-b-A -.->|🎯🌱🚀| dbpodcast[(podcast.db)]:::sqlite
             subg-b-A -->|✚| transcribe@{ shape: docs, label: "📄 XX_podcast.txt" }
             transcribe:::file
-
-            subg-b-A <-->|role + prompt > txt| subg-APIs-B
         end
 
         subgraph subg-c[Scraping news sites]
@@ -165,18 +152,16 @@ graph LR
 
         subgraph subg-d[Manage newsletters]
             style subg-d fill:#88A, color:#FFF
+            
+            nl-txt@{ shape: docs, label: "📄 NL_YYYY-MM-DD.txt" }
 
             D -->|main.py| subg-d-A[python POO]:::python
+            subg-d-A -->|✚| nl-txt:::file
         end
 
         subgraph subg-e[ChrisAI-research]
             style subg-e fill:#363, color:#FFF
             E -->|main.py| subg-e-A[/🚧 under construction 🚧\]:::python
-        end
-
-        subgraph transcription-API
-            style transcription-API fill:#88A, color:#FFF
-            subg-b-A <-->|EndPoint:transcribe| subg-APIs-A[/main.py: transcribe/]:::fastapi
         end
 
         subgraph subg-g[Monitoring AI tools]
@@ -189,11 +174,13 @@ graph LR
         subgraph subg-mysql[Global DB]
             style subg-mysql fill:#363, color:#FFF
             info1[/🚧 under construction 🚧\]
+            subg-g-B ~~~ subg-mysql-A
             subg-b-A -.->|🌱| subg-mysql-A[(ai-subject-monitoring)]:::mysql
-            subg-c-A -.->|🌱| subg-mysql-A
-            subg-e-A -.->|🌱| subg-mysql-A
-            subg-d-A -.->|🌱| subg-mysql-A
             subg-g-A -.->|🌱| subg-mysql-A
+            subg-c-A -.->|🌱| subg-mysql-A
+            subg-d-A -.->|🌱| subg-mysql-A
+            subg-e-A -.->|🌱| subg-mysql-A
+            nl-txt ~~~ subg-mysql-A
         end
 
         subgraph subg-f[Newsletter]
