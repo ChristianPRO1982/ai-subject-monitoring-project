@@ -316,7 +316,7 @@ flowchart TB
     end
 
     subgraph openAI[OpenAI]
-        style exDB fill:#555, color:#FFF
+        style openAI fill:#555, color:#FFF
 
         prompt-json ~~~ o-api[/API/]:::openai
         pw04 <==> o-api
