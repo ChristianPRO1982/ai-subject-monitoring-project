@@ -241,76 +241,90 @@ flowchart TB
     click goto-project "https://github.com/ChristianPRO1982/podcast-watchdog"
     style goto-project fill:#000, color:#0FF
 
-    subgraph inDB[internal DB]
-        style inDB fill:#88A, color:#FFF
-
-        sqlite[(podcast.db)]:::sqlite
-    end
-
     subgraph exDB[External DB]
         style exDB fill:#555, color:#FFF
 
         gDB[(Global DB)]:::mysql
     end
-    
-    subgraph output[Output files]
-        style output fill:#88A, color:#FFF
-
-        p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
-        p-mp3:::tfile
-        p-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
-        p-txt:::file
-
-        p-mp3 ~~~ p-txt
-    end
-        
-    subgraph transcription-API
-        style transcription-API fill:#555, color:#FFF
-        
-        t-api[/main.py: transcribe/]:::fastapi
-    end
 
     subgraph machine[Linux machine]
-        style machine fill:#88A, color:#FFF
+        style machine fill:#777, color:#FFF
+
+        subgraph inDB[internal DB]
+            style inDB fill:#88A, color:#FFF
+
+            sqlite[(podcast.db)]:::sqlite
+        end
         
-        pw00[main.py]:::python
-        pw00 ==> pw01[[#01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
-        pw01 ==> pw02[[#02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
-        pw02 ==> pw03[[#03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
-        pw03 ==> pw04[[#04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
-        pw04 ==> pw05[[#05: Global DB]]:::python
+        subgraph output[Output files]
+            style output fill:#88A, color:#FFF
+
+            p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
+            p-mp3:::tfile
+            p-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
+            p-txt:::file
+
+            p-mp3 ~~~ p-txt
+        end
+            
+        subgraph transcription-API
+            style transcription-API fill:#555, color:#FFF
+            
+            t-api[/main.py: transcribe/]:::fastapi
+        end
+
+        subgraph pw[Pdocast Watchdog]
+            style pw fill:#88A, color:#FFF
+            
+            pw00[main.py]:::python
+            pw00 ==> pw01[[#01: parse feeds RSS - utils_parse_rss.py ParseRSS]]:::python
+            pw01 ==> pw02[[#02: download mp3 - utils_podcast.py Podcasts.download_podcasts]]:::python
+            pw02 ==> pw03[[#03: transcribe - utils_podcast.py Podcasts.transcribe_podcasts]]:::python
+            pw03 ==> pw04[[#04: summarize - utils_podcast.py Podcasts.summarize_podcasts]]:::python
+            pw04 ==> pw05[[#05: Global DB]]:::python
+        end
+
+        subgraph input[Input files]
+            style input fill:#88A, color:#FFF
+
+            ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
+            ai-json:::file
+            prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
+            prompt-json:::file
+            ai-json ~~~ prompt-json
+        end
+
+        go((START)) --> ct(⏱️ Crontab)
+        ct ==> pw00
+        pw01 -->|👁️‍🗨️| ai-json
+        pw04 -->|👁️‍🗨️| prompt-json
+        pw03 -->|✚| p-txt
+        pw03 -->|🗑️| p-mp3
+        pw02 -->|✚| p-mp3
+        p-txt ~~~ gDB
+
+        pw04 -.->|🎯🚀| sqlite
+        pw01 -.->|🌱| sqlite
+        pw02 -.->|🎯🚀| sqlite
+        pw03 -.->|🎯🚀| sqlite
+        pw05 -.->|🎯🚀| sqlite
+
+        pw05 -.->|🌱| gDB
+
+        pw03 <--> t-api
+        t-api ~~~ pw03
+        t-api -->|👁️‍🗨️| p-mp3
+
+        pw05 ==> stop([END])
+
     end
 
-    subgraph input[Input files]
-        style input fill:#88A, color:#FFF
+    subgraph openAI[OpenAI]
+        style exDB fill:#555, color:#FFF
 
-        ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
-        ai-json:::file
-        prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
-        prompt-json:::file
-        ai-json ~~~ prompt-json
+        prompt-json ~~~ api[/API/]:::openai
+        pw04 <--> api
     end
-
-    ct(⏱️ Crontab) ==> pw00
-    pw01 -->|👁️‍🗨️| ai-json
-    pw04 -->|👁️‍🗨️| prompt-json
-    pw03 -->|✚| p-txt
-    pw03 -->|🗑️| p-mp3
-    pw02 -->|✚| p-mp3
-
-    pw05 -.->|🎯🚀| sqlite
-    pw04 -.->|🎯🚀| sqlite
-    pw01 -.->|🌱| sqlite
-    pw02 -.->|🎯🚀| sqlite
-    pw03 -.->|🎯🚀| sqlite
-
-    pw05 -.->|🌱| gDB
-
-    pw03 <--> t-api
-    t-api ~~~ pw03
-    t-api -->|👁️‍🗨️| p-mp3
-
-    pw05 ==> stop([END])
 
 
     classDef python fill:#FFDC52, color:#000;
