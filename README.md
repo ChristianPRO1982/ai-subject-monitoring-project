@@ -263,8 +263,6 @@ flowchart TB
             ai-json:::file
             prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
             prompt-json:::file
-            
-            style output fill:#88A, color:#FFF
 
             p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
             p-mp3:::tfile
@@ -316,6 +314,7 @@ flowchart TB
     end
 
     subgraph openAI[OpenAI]
+        style openAI fill:#555, color:#FFF
         style openAI fill:#555, color:#FFF
 
         prompt-json ~~~ o-api[/API/]:::openai
