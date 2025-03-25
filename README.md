@@ -295,6 +295,7 @@ flowchart TB
         pw03 -->|✚| p-txt
         pw03 -->|🗑️| p-mp3
         pw02 -->|✚| p-mp3
+        pw04 --> p-txt
         sqlite ~~~ gDB
 
         pw01 -.->|🌱| sqlite
