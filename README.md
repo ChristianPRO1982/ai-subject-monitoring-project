@@ -88,7 +88,7 @@ graph LR
             Lf6@{ shape: doc, label: "📄 File" }
             Lf7@{ shape: doc, label: "📄 File" }
 
-            a1(read file) -->|👁️‍🗨️| Lf4:::file
+            a1(read file) -->|👁️| Lf4:::file
             a3(create file) -->|✚| Lf5:::file
             a5(update file) -->|🔄| Lf6:::file
             a7(delete file) -->|🗑️| Lf7:::file
@@ -255,16 +255,21 @@ flowchart TB
 
             sqlite[(podcast.db)]:::sqlite
         end
-        
-        subgraph output[Output files]
+
+        subgraph inputoutput["Input / Output files"]
+            style inputoutput fill:#777, color:#FFF
+
+            ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
+            ai-json:::file
+            prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
+            prompt-json:::file
+            
             style output fill:#88A, color:#FFF
 
             p-mp3@{ shape: docs, label: "🎧 XX_podcast.mp3" }
             p-mp3:::tfile
             p-txt@{ shape: docs, label: "📄 XX_podcast.txt" }
             p-txt:::file
-
-            p-mp3 ~~~ p-txt
         end
             
         subgraph transcription-API
@@ -273,7 +278,7 @@ flowchart TB
             t-api[/main.py: transcribe/]:::fastapi
         end
 
-        subgraph pw[Pdocast Watchdog]
+        subgraph pw[Podcast Watchdog]
             style pw fill:#88A, color:#FFF
             
             pw00[main.py]:::python
@@ -284,36 +289,27 @@ flowchart TB
             pw04 ==> pw05[[#05: Global DB]]:::python
         end
 
-        subgraph input[Input files]
-            style input fill:#88A, color:#FFF
-
-            ai-json@{ shape: doc, label: "⚙️ ai_rss_feeds.json" }
-            ai-json:::file
-            prompt-json@{ shape: doc, label: "⚙️ ai_rss_prompts.json" }
-            prompt-json:::file
-            ai-json ~~~ prompt-json
-        end
 
         go((START)) --> ct(⏱️ Crontab)
         ct ==> pw00
-        pw01 -->|👁️‍🗨️| ai-json
-        pw04 -->|👁️‍🗨️| prompt-json
+        pw01 -->|👁️| ai-json
+        pw04 -->|👁️| prompt-json
         pw03 -->|✚| p-txt
         pw03 -->|🗑️| p-mp3
         pw02 -->|✚| p-mp3
-        p-txt ~~~ gDB
+        sqlite ~~~ gDB
 
-        pw04 -.->|🎯🚀| sqlite
         pw01 -.->|🌱| sqlite
         pw02 -.->|🎯🚀| sqlite
         pw03 -.->|🎯🚀| sqlite
+        pw04 -.->|🎯🚀| sqlite
         pw05 -.->|🎯🚀| sqlite
 
         pw05 -.->|🌱| gDB
 
-        pw03 <--> t-api
+        pw03 <==> t-api
         t-api ~~~ pw03
-        t-api -->|👁️‍🗨️| p-mp3
+        t-api -->|👁️| p-mp3
 
         pw05 ==> stop([END])
 
@@ -322,9 +318,13 @@ flowchart TB
     subgraph openAI[OpenAI]
         style exDB fill:#555, color:#FFF
 
-        prompt-json ~~~ api[/API/]:::openai
-        pw04 <--> api
+        prompt-json ~~~ o-api[/API/]:::openai
+        pw04 <==> o-api
     end
+
+    ai-json ~~~ prompt-json
+    prompt-json ~~~ p-mp3
+    p-mp3 ~~~ p-txt
 
 
     classDef python fill:#FFDC52, color:#000;
@@ -377,7 +377,7 @@ graph TB
 
     ct(⏱️ Crontab) ==> ns00
     ns01 -->|🔄| scrap-json
-    ns02 -->|👁️‍🗨️| scrap-json
+    ns02 -->|👁️| scrap-json
     ns03 -->|✚| article-txt
 
     ns04 -.->|🌱| gDB
@@ -646,7 +646,7 @@ sequenceDiagram
 graph RL
 
     subgraph autre
-    A[👁️‍🗨️✚🔄🗑️]
+    A[👁️✚🔄🗑️]
     B[🎯🌱🚀⚰️]
         style autre fill:#777, color:#FFF
         subgraph package[Developed package]
