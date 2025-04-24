@@ -723,7 +723,25 @@ graph TB
         subgraph QP3[QP3 : assassins]
             style QP3 fill:#88A, color:#FFF
             
-            
+            QP3-e1[lancement] --> QP3-e2[recherche d'informations]
+            QP3-e2 --o QP3-e3@{ shape: docs, label: "informations sur la cible" }
+            QP3-e2 --o QP3-e4@{ shape: docs, label: "informations sur les autres quêtes" }
+            QP3-e1 --> QP3-e5[cible trouvée]
+            QP3-e5 --> QP3-e6{Tuer la cible ?}
+            QP3-e6 --> QP3-e7[retour au commanditaire]
+            QP3-e7 -->|cible tuée| QP3-e8{{la cible a été assassinée ?}}
+            QP3-e8 -->|oui| QP3-e9{{la cible est innocente ?}}
+            QP3-e9 -->|oui| QP3-e10[[récompense + mauvaise réputation]]
+            QP3-e9 -->|non| QP3-e11[[récompense + bonne réputation]]
+            QP3-e8 -->|non| QP3-e12{{la cible est innocente ?}}
+            QP3-e12 -->|oui| QP3-e13[[combat]]
+            QP3-e13 -.->|oui| QP3-e14[[récompense + bonne réputation]]
+            QP3-e12 -->|non| QP3-e15[[pas de récompense + ~mauvaise réputation]]
+            QP3-e10 --> QP3-e16([FIN])
+            QP3-e11 --> QP3-e16([FIN])
+            QP3-e14 --> QP3-e16([FIN])
+            QP3-e15 --> QP3-e16([FIN])
+            QP3-e16 -.-> QP3-e1
         end
 
         subgraph QP2[QP2 : les amoureux]
