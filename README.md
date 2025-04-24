@@ -674,3 +674,100 @@ graph RL
     classDef file fill:#BBB, color:#333
     classDef tfile fill:#888, color:#333
 ```
+
+```mermaid
+graph TB
+    subgraph PotC
+        style PotC fill:#842, color:#F84
+        
+        start((début du jeu))
+        QO1([.....])
+        QOend([fin de la grande quête principale officielle])
+
+        subgraph QG3[QG3 : RPG PotC]
+            style QG3 fill:#88A, color:#FFF
+            
+
+        end
+
+        subgraph QG2[QG2 : Traites et trahisons]
+            style QG2 fill:#88A, color:#FFF
+            
+
+        end
+
+        subgraph QG1[QG1 : Le Cachet de São Vicente ~ Saint George]
+            style QG1 fill:#88A, color:#FFF
+            
+
+        end
+
+        subgraph QM3[QM3 : Le trésor inca]
+            style QM3 fill:#88A, color:#FFF
+            
+            
+        end
+
+        subgraph QM2[QM2 : A la poursuite de Carmen Sandiego]
+            style QM2 fill:#88A, color:#FFF
+            
+            
+        end
+
+        subgraph QM1[QM1 : Le titre de ''Pirates des Caraïbes'']
+            style QM1 fill:#88A, color:#FFF
+            
+            
+        end
+
+        subgraph QP3[QP3 : assassins]
+            style QP3 fill:#88A, color:#FFF
+            
+            
+        end
+
+        subgraph QP2[QP2 : les amoureux]
+            style QP2 fill:#88A, color:#FFF
+            
+            QP2-e1[lancement] --> QP2-e2[recherche de la bague]
+            QP2-e2 --> QP2-e5[la bague est remise]
+            QP2-e5 --> QP2-e6>quête terminée]
+            QP2-e6 -.-> QP2-e7{{Toutes les quêtes sont faites ?}}
+            QP2-e7 -.->|non| QP2-e1
+            QP2-e7 ==>|oui| QP2-e8[[apparition de la guilde]]
+            QP2-e8 ==> QP2-e9([FIN de toutes les quêtes])
+            QP2-e2 -.-> QP2-e3(((timeout)))
+            QP2-e3 --> QP2-e4[fin de la quête]
+            QP2-e4 -.-> QP2-e1
+        end
+
+        subgraph QP1[QP1 : cartes aux trésor]
+            style QP1 fill:#88A, color:#FFF
+
+            QP1-e1[lancement] --> QP1-e2[recherche du trésor]
+            QP1-e2 --> QP1-e3[recherche du trésor]
+            QP1-e3 --> QP1-e4{partage du trésor ?}
+            QP1-e4 -->|non| QP1-e5[[combat]]
+            QP1-e5 --> QP1-e6([FIN de toutes les quêtes])
+            QP1-e4 -->|oui| QP1-e7>partage du trésor]
+            QP1-e7 -.-> QP1-e8{{Toutes les quêtes sont faites ?}}
+            QP1-e8 -.->|non| QP1-e1
+            QP1-e8 ==>|oui| QP1-e9[[lancement de la dernière quête]]
+            QP1-e9 ==> QP1-e10([FIN de toutes les quêtes])
+        end
+    end
+
+    start o--o QO1
+    QO1 o--o QOend
+    start ==> QP1
+    start ==> QP2
+    QOend ==> QP3
+    QOend ==> QM1
+    QOend ==> QM2
+    QOend ==> QM3
+    QM3 --> QG1
+    QG1 --> QG2
+    QG2 --> QG3
+
+    classDef python fill:#FFDC52, color:#000;
+```
